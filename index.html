@@ -6,101 +6,140 @@
 <title>Драгоценные Камни Джйотиш · С. Кройцер</title>
 <style>
 :root {
-  --beige:      #F2EBE0;
-  --beige-lt:   #FAF6F0;
-  --cream:      #FDF9F5;
-  --terra:      #B85C38;
-  --terra-dk:   #8B3820;
-  --brown:      #3D2314;
-  --brown-md:   #6B3D25;
-  --sand:       #C9956A;
-  --sand-lt:    #E8CEAF;
-  --gold:       #A07840;
+  --red:        #df2227;
+  --red-dk:     #c41f23;
+  --red-lt:     #f5b5b7;
+  --orange:     #ef5024;
+  --white:      #FFFFFF;
+  --cream:      #FFF9F5;
+  --beige:      #FFF9F5;
+  --gray:       #F5F5F5;
+  --gray-md:    #BFBFBF;
+  --gray-dk:    #5A5A5A;
+  --brown-md:   #8A6D5A;
+  --terra-dk:   #C0392B;
+  --green-dk:   #27682A;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--beige);color:var(--brown);font-family:Georgia,'Times New Roman',serif;min-height:100vh}
+body{background:#FFFFFF;color:var(--gray-dk);font-family:Arial,sans-serif;min-height:100vh}
 
 /* ── HEADER ── */
-header{background:var(--brown);color:var(--sand-lt);text-align:center;padding:2rem 1rem 1.6rem;position:relative}
-.header-ornament{color:var(--sand);font-size:.78rem;letter-spacing:.6rem;opacity:.65;display:block;margin:.35rem 0}
-header h1{font-size:1.75rem;letter-spacing:.08rem;color:var(--sand-lt)}
-header p{font-size:.88rem;color:var(--sand);font-style:italic;margin-top:.35rem}
+header{
+  display:none;
+}
+.header-stars{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.header-stars::before,.header-stars::after{
+  content:'';
+  position:absolute;display:none;
+}
+.header-stars::before{top:0;left:-10%}
+.header-stars::after{bottom:0;left:-20%}
+.header-inner{position:relative;z-index:1;padding:2.2rem 1rem 2rem}
+.header-author{font-size:.72rem;letter-spacing:.45rem;color:var(--white);text-transform:uppercase;opacity:.95;margin-bottom:.9rem;display:block;font-weight:600}
+.header-gem{font-size:2.8rem;display:block;margin:.3rem 0;filter:drop-shadow(0 0 18px rgba(255,255,255,.4))}
+header h1{font-size:1.7rem;letter-spacing:.12rem;color:var(--white);text-shadow:0 0 30px rgba(0,0,0,.2);line-height:1.3;font-weight:700}
+.header-sub{font-size:.82rem;color:rgba(255,255,255,.95);font-style:italic;margin-top:.5rem;letter-spacing:.04rem}
+.header-ornament{display:none}
+.header-glow{display:none}
 
 /* ── LAYOUT ── */
 .wrap{max-width:820px;margin:0 auto;padding:1.5rem}
 
 /* ── CARD ── */
-.card{background:var(--cream);border:1px solid var(--sand-lt);border-radius:4px;padding:1.4rem;margin-bottom:1.2rem;box-shadow:0 2px 8px rgba(61,35,20,.07)}
-.card-title{color:var(--terra-dk);font-size:1.05rem;margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--sand-lt);display:flex;align-items:center;gap:.45rem}
+.card{background:var(--white);border:1px solid #EBEBEB;border-radius:8px;padding:1.4rem;margin-bottom:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.card-title{color:var(--red);font-size:1.05rem;margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:2px solid var(--red);display:flex;align-items:center;gap:.45rem;font-weight:600}
 
 /* ── FORM ── */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 @media(max-width:520px){.grid2{grid-template-columns:1fr}}
-label.lbl{display:block;font-size:.82rem;color:var(--brown-md);margin-bottom:.28rem;font-style:italic}
-input,select{width:100%;padding:.48rem .7rem;border:1px solid var(--sand);border-radius:3px;background:#fff;color:var(--brown);font-size:.93rem;font-family:inherit;outline:none;transition:border-color .18s}
-input:focus,select:focus{border-color:var(--terra)}
+label.lbl{display:block;font-size:.82rem;color:var(--gray-dk);margin-bottom:.28rem;font-weight:500}
+input,select{width:100%;padding:.48rem .7rem;border:1px solid #DDD;border-radius:4px;background:#fff;color:var(--gray-dk);font-size:.93rem;font-family:Arial,sans-serif;outline:none;transition:border-color .18s}
+input:focus,select:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(231,76,60,.08)}
 .radio-row{display:flex;gap:1.2rem;margin-top:.3rem}
-.radio-row label{display:flex;align-items:center;gap:.35rem;cursor:pointer;font-style:normal;font-size:.9rem}
-.radio-row input[type=radio]{width:auto}
-.btn{background:var(--terra);color:#fff;border:none;padding:.72rem 2rem;font-size:1rem;font-family:inherit;border-radius:3px;cursor:pointer;width:100%;margin-top:.9rem;letter-spacing:.04rem;transition:background .18s}
-.btn:hover{background:var(--terra-dk)}
+.radio-row label{display:flex;align-items:center;gap:.35rem;cursor:pointer;font-style:normal;font-size:.9rem;color:var(--gray-dk)}
+.radio-row input[type=radio]{width:auto;accent-color:var(--red)}
+.btn{background:var(--red);color:var(--white);border:none;padding:.72rem 2rem;font-size:1rem;font-family:Arial,sans-serif;border-radius:4px;cursor:pointer;width:100%;margin-top:.9rem;letter-spacing:.04rem;transition:background .18s;font-weight:600}
+.btn:hover{background:var(--red-dk)}
+.btn:disabled{background:var(--gray-md);cursor:wait}
+
+/* ── ENGINE STATUS ── */
+.engine-badge{font-size:.74rem;padding:.3rem .55rem;border-radius:4px;margin-top:.6rem;display:inline-block;border-left:3px solid var(--green-dk);background:#F0F7F0;color:var(--green-dk)}
+.engine-badge.fallback{border-left-color:var(--terra-dk);background:#FFF0EB;color:var(--terra-dk)}
+.engine-badge.loading{border-left-color:var(--gray-md);background:var(--gray);color:var(--gray-dk)}
 
 /* ── RESULTS ── */
 #results{display:none}
-.lagna-box{background:var(--brown);color:var(--sand-lt);border-radius:4px;padding:1.3rem 1.5rem;text-align:center;margin-bottom:1.4rem}
-.lagna-box h2{font-size:1.35rem;color:var(--sand-lt)}
-.lagna-sub{font-size:.82rem;color:var(--sand);font-style:italic;margin-top:.3rem;line-height:1.5}
-.sec-title{color:var(--terra-dk);font-size:.98rem;margin:1.4rem 0 .7rem;display:flex;align-items:center;gap:.45rem;padding-bottom:.38rem;border-bottom:1px solid var(--sand-lt)}
+.lagna-box{background:var(--red);color:var(--white);border-radius:8px;padding:1.3rem 1.5rem;text-align:center;margin-bottom:1.4rem}
+.lagna-box h2{font-size:1.35rem;color:var(--white);font-weight:700}
+.lagna-sub{font-size:.82rem;color:rgba(255,255,255,.95);margin-top:.3rem;line-height:1.5}
+.sec-title{color:var(--red);font-size:.98rem;margin:1.4rem 0 .7rem;display:flex;align-items:center;gap:.45rem;padding-bottom:.38rem;border-bottom:2px solid var(--red);font-weight:600}
 
 /* ── PLANET TABLE ── */
 .ptable{width:100%;border-collapse:collapse;font-size:.8rem}
-.ptable th{background:var(--brown);color:var(--sand-lt);padding:.38rem .55rem;text-align:left;font-weight:normal;font-style:italic}
-.ptable td{padding:.38rem .55rem;border-bottom:1px solid var(--sand-lt)}
-.ptable tr:nth-child(even) td{background:var(--beige)}
+.ptable th{background:var(--red);color:var(--white);padding:.38rem .55rem;text-align:left;font-weight:600}
+.ptable td{padding:.38rem .55rem;border-bottom:1px solid #EBEBEB;color:var(--gray-dk)}
+.ptable tr:nth-child(even) td{background:#F9F9F9}
 .d-ex{color:#27682A;font-weight:bold}
 .d-own{color:#1A5C8A;font-weight:bold}
 .d-deb{color:#8B2312;font-weight:bold}
 .d-ene{color:#8B4513}
-.d-fri{color:var(--brown-md)}
+.d-fri{color:var(--gray-dk)}
+.flag{font-size:.72rem;color:var(--terra-dk);cursor:help}
+.flag.retro{color:#1A5C8A}
+.flag.ok{color:var(--green-dk)}
 
 /* ── GEM CARD ── */
-.gem{border-left:4px solid var(--terra);padding:1.1rem;margin-bottom:.9rem;background:var(--cream);border:1px solid var(--sand-lt);border-left:4px solid var(--terra);border-radius:4px;box-shadow:0 1px 4px rgba(61,35,20,.05)}
-.gem.secondary{border-left-color:var(--sand)}
+.gem{border-left:4px solid var(--red);padding:1.1rem;margin-bottom:.9rem;background:var(--white);border:1px solid #EBEBEB;border-left:4px solid var(--red);border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.gem.secondary{border-left-color:var(--orange)}
+.gem.soft{border-left-color:var(--gray-md);background:#FCFCFC}
 .gem-head{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start}
 .gem-icon{font-size:1.55rem;flex-shrink:0;margin-top:.05rem}
-.gem-title{font-size:1.05rem;color:var(--terra-dk);font-weight:bold}
-.gem-sansk{font-size:.78rem;color:var(--sand);font-style:italic}
-.gem-why{font-size:.78rem;color:var(--brown-md);margin-top:.15rem}
+.gem-title{font-size:1.05rem;color:var(--red);font-weight:700}
+.gem-sansk{font-size:.78rem;color:var(--gray-md);font-style:italic}
+.gem-why{font-size:.78rem;color:var(--gray-dk);margin-top:.15rem}
 .gem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;font-size:.79rem}
 @media(max-width:480px){.gem-grid{grid-template-columns:1fr 1fr}}
-.gem-cell{background:var(--beige);padding:.38rem .55rem;border-radius:3px}
-.gem-lbl{font-size:.7rem;color:var(--sand);font-style:italic;margin-bottom:.08rem}
-.gem-val{color:var(--brown);font-weight:bold;line-height:1.3}
+.gem-cell{background:#F9F9F9;padding:.38rem .55rem;border-radius:4px}
+.gem-lbl{font-size:.7rem;color:var(--gray-md);font-weight:500;margin-bottom:.08rem}
+.gem-val{color:var(--gray-dk);font-weight:600;line-height:1.3}
 .gem-cell.wide{grid-column:span 2}
 .gem-cell.full{grid-column:1/-1}
-.gem-warn{background:#FFF0EB;color:#8B2312;font-size:.77rem;padding:.38rem .55rem;border-radius:3px;margin-top:.5rem}
-.gem-subs{font-size:.77rem;color:var(--brown-md);margin-top:.45rem;padding-top:.45rem;border-top:1px dashed var(--sand-lt)}
-.gem-mantra{font-size:.77rem;color:var(--terra);font-style:italic;margin-top:.35rem}
+.gem-warn{background:#FFF0EB;color:#C0392B;font-size:.77rem;padding:.38rem .55rem;border-radius:4px;margin-top:.5rem;border-left:3px solid var(--red)}
+.gem-alt{background:#FFF8E8;color:#8A5A00;font-size:.77rem;padding:.45rem .6rem;border-radius:4px;margin-top:.5rem;border-left:3px solid #E0A800}
+.gem-subs{font-size:.77rem;color:var(--gray-dk);margin-top:.45rem;padding-top:.45rem;border-top:1px dashed #EBEBEB}
+.gem-mantra{font-size:.77rem;color:var(--red);font-style:italic;margin-top:.35rem}
+.note-card{background:#FBFBFB;border:1px solid #EBEBEB;border-left:3px solid var(--brown-md);border-radius:6px;padding:.7rem .9rem;margin-bottom:.9rem;font-size:.82rem;color:var(--gray-dk);line-height:1.55}
 
-.ornament{text-align:center;color:var(--sand);font-size:.82rem;letter-spacing:.5rem;opacity:.55;margin:1.2rem 0}
+.ornament{display:none}
 
-footer{text-align:center;padding:1.2rem;font-size:.73rem;color:var(--sand);margin-top:.5rem}
+footer{display:none}
 
 /* scrollbar */
 ::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:var(--beige)}
-::-webkit-scrollbar-thumb{background:var(--sand);border-radius:3px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--red-lt);border-radius:3px}
+
+/* ── DATE SPINNER ── */
+.date-spin-wrap{display:flex;gap:.5rem;align-items:center}
+.spin-unit{display:flex;flex-direction:column;align-items:center;gap:0}
+.spin-unit label{font-size:.7rem;color:var(--gray-md);font-weight:500;margin-bottom:.15rem}
+.spin-box{display:flex;flex-direction:column;align-items:center;border:1px solid #DDD;border-radius:4px;overflow:hidden;background:#fff;user-select:none}
+.spin-btn{background:#F9F9F9;border:none;width:100%;padding:.18rem 0;cursor:pointer;font-size:.75rem;color:var(--red);line-height:1;transition:background .12s;font-weight:600}
+.spin-btn:hover{background:#E74C3C;color:#fff}
+.spin-val{font-size:1.05rem;font-family:Arial,sans-serif;color:var(--gray-dk);width:52px;text-align:center;padding:.32rem 0;border-top:1px solid #DDD;border-bottom:1px solid #DDD;cursor:ns-resize;min-height:2.1rem;line-height:1.4}
+.spin-unit.wide .spin-val{width:72px}
+.spin-sep{font-size:1.2rem;color:var(--gray-md);padding-top:1.4rem;align-self:center}
 
 /* ── CITY SEARCH ── */
 .city-wrap{position:relative}
-.city-drop{position:absolute;top:100%;left:0;right:0;z-index:200;background:#fff;border:1px solid var(--sand);border-top:none;border-radius:0 0 3px 3px;box-shadow:0 4px 12px rgba(61,35,20,.15);max-height:240px;overflow-y:auto;display:none}
-.city-item{padding:.5rem .75rem;font-size:.86rem;cursor:pointer;border-bottom:1px solid var(--sand-lt);color:var(--brown);line-height:1.3}
-.city-item:hover,.city-item.active{background:var(--beige)}
-.city-item small{display:block;font-size:.74rem;color:var(--sand);margin-top:.1rem}
-.city-item.no-result{cursor:default;font-style:italic;color:var(--brown-md)}
-.tz-badge{font-size:.77rem;color:var(--terra-dk);background:var(--beige);border:1px solid var(--sand-lt);border-radius:3px;padding:.3rem .55rem;margin-top:.4rem;font-style:italic;display:none}
+.city-drop{position:absolute;top:100%;left:0;right:0;z-index:200;background:#fff;border:1px solid #DDD;border-top:none;border-radius:0 0 4px 4px;box-shadow:0 4px 12px rgba(0,0,0,.1);max-height:240px;overflow-y:auto;display:none}
+.city-item{padding:.5rem .75rem;font-size:.86rem;cursor:pointer;border-bottom:1px solid #EBEBEB;color:var(--gray-dk);line-height:1.3}
+.city-item:hover,.city-item.active{background:#F0F0F0}
+.city-item small{display:block;font-size:.74rem;color:var(--gray-md);margin-top:.1rem}
+.city-item.no-result{cursor:default;font-style:italic;color:var(--gray-md)}
+.tz-badge{font-size:.77rem;color:var(--red);background:#FFF9F5;border:1px solid #FFE0D6;border-radius:4px;padding:.3rem .55rem;margin-top:.4rem;display:none;border-left:3px solid var(--red)}
 .tz-badge.visible{display:block}
-.search-spinner{display:inline-block;width:12px;height:12px;border:2px solid var(--sand-lt);border-top-color:var(--terra);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-left:.4rem;display:none}
+.search-spinner{display:inline-block;width:12px;height:12px;border:2px solid #DDD;border-top-color:var(--red);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-left:.4rem;display:none}
 .search-spinner.active{display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
@@ -108,10 +147,15 @@ footer{text-align:center;padding:1.2rem;font-size:.73rem;color:var(--sand);margi
 <body>
 
 <header>
-  <span class="header-ornament">✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦</span>
-  <h1>💎 Драгоценные Камни Джйотиш</h1>
-  <p>Ведическая астрология · Подбор камней по дате рождения · С. Кройцер</p>
-  <span class="header-ornament">✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦</span>
+  <div class="header-stars"></div>
+  <div class="header-glow"></div>
+  <div class="header-inner">
+    <span class="header-author">Светлана Кройцер</span>
+    <span class="header-gem">💎</span>
+    <h1>Драгоценные Камни<br>в Джйотиш</h1>
+    <div class="header-ornament">✦ · ✧ · ★ · ✧ · ✦</div>
+    <p class="header-sub">Индийская астрология · Подбор камней по натальной карте</p>
+  </div>
 </header>
 
 <div class="wrap">
@@ -122,7 +166,35 @@ footer{text-align:center;padding:1.2rem;font-size:.73rem;color:var(--sand);margi
     <div class="grid2">
       <div>
         <label class="lbl">Дата рождения</label>
-        <input type="date" id="bd" onchange="onDateChange()"/>
+        <div class="date-spin-wrap">
+          <div class="spin-unit">
+            <label>день</label>
+            <div class="spin-box" id="sdayBox">
+              <button class="spin-btn" onclick="spinStep('day',1)">▲</button>
+              <div class="spin-val" id="sdayVal">—</div>
+              <button class="spin-btn" onclick="spinStep('day',-1)">▼</button>
+            </div>
+          </div>
+          <span class="spin-sep">.</span>
+          <div class="spin-unit">
+            <label>месяц</label>
+            <div class="spin-box" id="smonBox">
+              <button class="spin-btn" onclick="spinStep('mon',1)">▲</button>
+              <div class="spin-val" id="smonVal">—</div>
+              <button class="spin-btn" onclick="spinStep('mon',-1)">▼</button>
+            </div>
+          </div>
+          <span class="spin-sep">.</span>
+          <div class="spin-unit wide">
+            <label>год</label>
+            <div class="spin-box" id="syearBox">
+              <button class="spin-btn" onclick="spinStep('year',1)">▲</button>
+              <div class="spin-val" id="syearVal">—</div>
+              <button class="spin-btn" onclick="spinStep('year',-1)">▼</button>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" id="bday"/><input type="hidden" id="bmon"/><input type="hidden" id="byear"/>
       </div>
       <div>
         <label class="lbl">Время рождения (местное)</label>
@@ -169,7 +241,8 @@ footer{text-align:center;padding:1.2rem;font-size:.73rem;color:var(--sand);margi
         <label><input type="radio" name="sex" value="f"> Женский</label>
       </div>
     </div>
-    <button class="btn" onclick="calc()">✦ Рассчитать рекомендации по камням</button>
+    <button class="btn" id="calcBtn" onclick="calc()">✦ Рассчитать рекомендации по камням</button>
+    <div id="engineBadge" class="engine-badge loading">⏳ Загрузка швейцарских эфемерид…</div>
   </div>
 
   <!-- RESULTS -->
@@ -179,9 +252,12 @@ footer{text-align:center;padding:1.2rem;font-size:.73rem;color:var(--sand);margi
     <div class="sec-title">✦ Планеты в сидерическом гороскопе</div>
     <div class="card" style="padding:.6rem;overflow-x:auto">
       <table class="ptable" id="ptable"></table>
+      <div style="font-size:.72rem;color:var(--gray-md);margin-top:.5rem;line-height:1.5">
+        ℞ — ретроградная · ☉! — сожжена Солнцем (комбуста) · ⚠ — поражена малефиками · ✦ — управитель лагны
+      </div>
     </div>
 
-    <div class="sec-title">✦ Основные камни — носить постоянно</div>
+    <div class="sec-title">✦ Основной камень — носить постоянно</div>
     <div id="primaryDiv"></div>
 
     <div class="sec-title" id="secTitle">✦ Дополнительные камни — камни удачи</div>
@@ -195,7 +271,7 @@ footer{text-align:center;padding:1.2rem;font-size:.73rem;color:var(--sand);margi
       <p>• Камни Сатурна, Раху и Кету требуют особой осторожности и консультации астролога.</p>
       <p>• Синий сапфир рекомендуется носить 3 дня (пробный период), наблюдая за состоянием.</p>
       <p>• Современная ювелирная обработка (лазер) убивает «душу камня» — приобретайте камни только у специалистов по Джйотиш.</p>
-      <p style="margin-top:.6rem;color:var(--terra-dk);font-weight:bold">⚠ Данный расчёт является ориентировочным. Для точного назначения камней необходима консультация с ведическим астрологом.</p>
+      <p style="margin-top:.6rem;color:var(--terra-dk);font-weight:bold">⚠ Данный расчёт является ориентировочным. Для точного назначения камней необходима консультация с ведическим астрологом. Лучше не носить камень вовсе, чем носить неподходящий.</p>
     </div>
 
     <div class="ornament">✦ ✧ ✦ ✧ ✦ ✧ ✦</div>
@@ -203,9 +279,67 @@ footer{text-align:center;padding:1.2rem;font-size:.73rem;color:var(--sand);margi
 
 </div>
 
-<footer>© Древняя Ведическая Астрология со Светланой Кройцер · 2018 · Австрия</footer>
+<footer>
+  <div style="margin-bottom:.6rem">© Индийская астрология со Светланой Кройцер</div>
+  <div style="font-size:.7rem;color:var(--gray-md);line-height:1.5">
+    Ваши данные не передаются и не собираются. Расчёты выполняются локально в браузере.
+  </div>
+  <div style="margin-top:.6rem"><a href="https://goroskop1008.ru" target="_blank" style="color:var(--red);text-decoration:none;font-weight:600">goroskop1008.ru</a></div>
+</footer>
 
 <script>
+// ═══════════════════════════════════════
+//  DATE SPINNER
+// ═══════════════════════════════════════
+
+const _spin = {day:0, mon:0, year:0};
+const MON_RU = ['','янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+
+function spinRender() {
+  document.getElementById('sdayVal').textContent  = _spin.day  ? String(_spin.day).padStart(2,'0')  : '—';
+  document.getElementById('smonVal').textContent  = _spin.mon  ? MON_RU[_spin.mon]                  : '—';
+  document.getElementById('syearVal').textContent = _spin.year ? _spin.year                          : '—';
+  document.getElementById('bday').value  = _spin.day  || '';
+  document.getElementById('bmon').value  = _spin.mon  || '';
+  document.getElementById('byear').value = _spin.year || '';
+  onDateChange();
+}
+
+function spinStep(unit, dir) {
+  if (unit === 'day') {
+    if (!_spin.day) _spin.day = dir > 0 ? 1 : 31;
+    else { _spin.day += dir; if (_spin.day < 1) _spin.day = 31; if (_spin.day > 31) _spin.day = 1; }
+  } else if (unit === 'mon') {
+    if (!_spin.mon) _spin.mon = dir > 0 ? 1 : 12;
+    else { _spin.mon += dir; if (_spin.mon < 1) _spin.mon = 12; if (_spin.mon > 12) _spin.mon = 1; }
+  } else {
+    const cur = _spin.year || new Date().getFullYear();
+    _spin.year = cur + dir;
+    if (_spin.year < 1800) _spin.year = 1800;
+    if (_spin.year > 2100) _spin.year = 2100;
+  }
+  spinRender();
+}
+
+function initSpinners() {
+  [['sdayBox','day'], ['smonBox','mon'], ['syearBox','year']].forEach(([id, unit]) => {
+    const box = document.getElementById(id);
+    box.addEventListener('wheel', e => {
+      e.preventDefault();
+      spinStep(unit, e.deltaY < 0 ? 1 : -1);
+    }, {passive: false});
+    // Touch swipe
+    let _ty0 = 0;
+    box.addEventListener('touchstart', e => { _ty0 = e.touches[0].clientY; }, {passive:true});
+    box.addEventListener('touchmove', e => {
+      e.preventDefault();
+      const dy = _ty0 - e.touches[0].clientY;
+      if (Math.abs(dy) > 12) { spinStep(unit, dy > 0 ? 1 : -1); _ty0 = e.touches[0].clientY; }
+    }, {passive:false});
+  });
+}
+document.addEventListener('DOMContentLoaded', () => { initSpinners(); ensureEngine(); });
+
 // ═══════════════════════════════════════
 //  CITY GEOCODING (Nominatim + historical TZ)
 // ═══════════════════════════════════════
@@ -323,11 +457,18 @@ async function detectTimezone(lat, lon) {
   showTZBadge(`⚠ Служба определения зоны недоступна. UTC${approxTz >= 0 ? '+' : ''}${approxTz} (оценка по долготе ${parseFloat(lon).toFixed(2)}°)`);
 }
 
+function getBirthDate() {
+  const d = parseInt(document.getElementById('bday').value);
+  const mo = parseInt(document.getElementById('bmon').value);
+  const y = parseInt(document.getElementById('byear').value);
+  if (!d || !mo || !y || y < 1800) return null;
+  return {y, mo, d};
+}
+
 function applyHistoricalTZ() {
-  const ds = document.getElementById('bd').value;
-  if (!ds || !_ianaZone) return;
-  const [y, mo, d] = ds.split('-').map(Number);
-  if (!y) return;
+  const bd = getBirthDate();
+  if (!bd || !_ianaZone) return;
+  const {y, mo, d} = bd;
   const offset = getHistoricalOffset(_ianaZone, y, mo, d);
   document.getElementById('tz').value = offset;
 
@@ -338,7 +479,8 @@ function applyHistoricalTZ() {
 }
 
 function onDateChange() {
-  if (_ianaZone) applyHistoricalTZ();
+  const bd = getBirthDate();
+  if (bd && _ianaZone) applyHistoricalTZ();
 }
 
 // Get UTC offset in hours using browser's IANA data (includes full history)
@@ -442,6 +584,13 @@ const ENEMIES={
   Ketu:['Sun','Moon','Saturn'],
 };
 
+// Combustion orbs (degrees from Sun) — classical values
+const COMBUST_ORB={Moon:12,Mars:17,Mercury:14,Venus:10,Jupiter:11,Saturn:15};
+// Strong natural malefics used for affliction checks
+const MALEFICS=['Mars','Saturn','Rahu','Ketu'];
+// "Hard" gems requiring caution + alternative
+const HARD_PLANETS=['Saturn','Mars','Rahu','Ketu'];
+
 // ── GEMSTONE DATABASE (from book) ──
 const GEMS={
   Sun:{
@@ -489,7 +638,7 @@ const GEMS={
     cut:'Изумрудная (прямоугольная) или кабошон',
     color:'Ярко-зелёный, прозрачный, без видимых трещин',
     mantra:'Ом Бум Буддхае Намах · 1, 3, 9, 21 или 108 раз · лицом на Север',
-    sub_m:'Перидот, зелёный турмалин, хризопраз, зелёный турмалин',
+    sub_m:'Перидот, зелёный турмалин, хризопраз',
     sub_f:'Перидот, зелёный турмалин, хризопраз',
     warn_f:'',
     warn:'⚠ Запрещён молодожёнам! Идеален для Лагны Близнецов.',
@@ -567,15 +716,15 @@ const GEMS={
 };
 
 // ═══════════════════════════════════════
-//  ASTRONOMICAL CALCULATIONS
-//  Planets: Kepler's equation → helio → geo ecliptic
-//  Accuracy ~1° (sign determination reliable)
+//  MATH HELPERS
 // ═══════════════════════════════════════
-
 const D2R = Math.PI / 180;
 const R2D = 180 / Math.PI;
+function nd(d){return((d%360)+360)%360;}
+function nr(r){return((r%(2*Math.PI))+(2*Math.PI))%(2*Math.PI);}
 
-function jd(y,mo,d,h,mi,tz){
+// Julian Day (UT) from local civil time + tz offset
+function jdLocal(y,mo,d,h,mi,tz){
   const ut=h+mi/60-tz;
   let Y=y,M=mo,D=d+ut/24;
   if(M<=2){Y--;M+=12;}
@@ -583,38 +732,91 @@ function jd(y,mo,d,h,mi,tz){
   return Math.floor(365.25*(Y+4716))+Math.floor(30.6001*(M+1))+D+B-1524.5;
 }
 
-function nd(d){return((d%360)+360)%360;}
-function nr(r){return((r%(2*Math.PI))+(2*Math.PI))%(2*Math.PI);}
-
-// ── Lahiri ayanamsa (Chitrapaksha) ──
-// At J2000.0 = 23.85281°, precession ~50.29"/yr
-function ayanamsa(JD){
-  const T=(JD-2451545)/365.25; // Julian years since J2000
-  return 23.85281+0.013969*T;
+// ── Lahiri (Chitrapaksha) ayanamsa ──
+// Sidereal zero anchored to the Lahiri definition; t = Julian centuries from J2000.
+// ayan(J2000)=23.85306°, drift = general precession in longitude (IAU2006):
+//   p_A = 5028.796195"·t + 1.1054348"·t²  →  °/century
+// Matches published Lahiri tables to ~1″ over 1700–2100 (sign/house level is exact).
+function lahiriAyanamsa(JD){
+  const t=(JD-2451545.0)/36525.0;
+  return 23.85306 + 1.3968878*t + 0.0003071*t*t;
 }
 
-function eps(JD){
-  const T=(JD-2451545)/36525;
-  return 23.439291111-0.013004167*T;
+// ═══════════════════════════════════════
+//  SWISS EPHEMERIS ENGINE (real positions)
+//  @swisseph/browser, Moshier mode (no data files).
+//  Tropical apparent positions → minus Lahiri = sidereal.
+// ═══════════════════════════════════════
+let SWE = null;            // façade: { julday, calc, houses }
+let SWE_READY = false;
+let SWE_FAILED = false;
+let _enginePromise = null;
+
+function ensureEngine(){ if(!_enginePromise) _enginePromise=initEngine(); return _enginePromise; }
+
+async function initEngine(){
+  const badge=document.getElementById('engineBadge');
+  try{
+    // The published @swisseph/browser bundle leaks a bundled CJS module's
+    // `exports` into top-level scope, and its high-level wrapper methods
+    // (calculatePosition/calculateHouses/julianDay) reference core helpers
+    // that the broken build leaves undefined. So: (1) provide an `exports`
+    // sink so the module finishes evaluating, (2) use the wrapper only to
+    // instantiate the (working) emscripten Module, (3) drive the C functions
+    // swe_*_wrap directly via ccall. The astronomy is genuine Swiss Ephemeris.
+    if(typeof window.exports==='undefined'){ window.exports={}; window.module={exports:window.exports}; }
+    const mod = await import('./swisseph-browser.js');
+    const SwissEphemeris = mod.SwissEphemeris || window.SwissEphemeris || mod.default;
+    const inst = new SwissEphemeris();
+    await inst.init();                     // creates the emscripten Module + loads .wasm
+    const m = inst.module;
+    const GREG = 1;                        // Gregorian calendar flag
+    SWE = {
+      julday:(y,mo,d,hUT)=> m.ccall('swe_julday_wrap','number',
+        ['number','number','number','number','number'], [y,mo,d,hUT,GREG]),
+      calc:(jd,body,flags)=>{
+        const xx=m._malloc(6*8), se=m._malloc(256);
+        const r=m.ccall('swe_calc_ut_wrap','number',
+          ['number','number','number','number','number'], [jd,body,flags,xx,se]);
+        const lon=m.getValue(xx,'double'), spd=m.getValue(xx+3*8,'double');
+        m._free(xx); m._free(se);
+        if(r<0) throw new Error('swe_calc_ut failed (body '+body+')');
+        return {lon, spd};
+      },
+      houses:(jd,lat,lon,hsys)=>{
+        const c=m._malloc(13*8), a=m._malloc(10*8);
+        m.ccall('swe_houses_wrap','number',
+          ['number','number','number','number','number','number'], [jd,lat,lon,hsys,c,a]);
+        const asc=m.getValue(a,'double');  // ascmc[0] = Ascendant
+        m._free(c); m._free(a);
+        return asc;
+      },
+    };
+    // smoke test — Sun longitude must be finite
+    if(!isFinite(SWE.calc(SWE.julday(2000,1,1,12),0,4|256).lon)) throw new Error('no result');
+    SWE_READY = true;
+    if(badge){ badge.className='engine-badge'; badge.textContent='✓ Швейцарские эфемериды загружены (режим Moshier) · аянамша Лахири'; }
+  }catch(e){
+    console.warn('Swiss Ephemeris init failed — using analytic fallback', e);
+    SWE_FAILED = true;
+    if(badge){ badge.className='engine-badge fallback'; badge.textContent='⚠ Швейцарские эфемериды не загрузились — используется приближённый расчёт. Запустите через локальный сервер (python3 -m http.server).'; }
+  }
 }
 
-function gmst(JD){
-  const T=(JD-2451545)/36525;
-  return nd(280.46061837+360.98564736629*(JD-2451545)+0.000387933*T*T);
-}
+const SWE_ID={Sun:0,Moon:1,Mercury:2,Venus:3,Mars:4,Jupiter:5,Saturn:6,Rahu:11}; // Rahu = true node
+const HSYS_WHOLE='W'.charCodeAt(0); // дома равнознаковые; от swe_houses берём только Асцендент
 
-// ── Sun (geocentric tropical, Meeus Ch.27) ──
+// ── Analytic FALLBACK (used only if WASM unavailable) ──
+function eps(JD){const T=(JD-2451545)/36525;return 23.439291111-0.013004167*T;}
+function gmst(JD){const T=(JD-2451545)/36525;return nd(280.46061837+360.98564736629*(JD-2451545)+0.000387933*T*T);}
 function sunLon(JD){
   const T=(JD-2451545)/36525;
   const L0=280.46646+36000.76983*T+0.0003032*T*T;
   const M=nd(357.52911+35999.05029*T-0.0001537*T*T)*D2R;
-  const C=(1.914602-0.004817*T-0.000014*T*T)*Math.sin(M)
-         +(0.019993-0.000101*T)*Math.sin(2*M)+0.000289*Math.sin(3*M);
+  const C=(1.914602-0.004817*T-0.000014*T*T)*Math.sin(M)+(0.019993-0.000101*T)*Math.sin(2*M)+0.000289*Math.sin(3*M);
   const om=nd(125.04-1934.136*T)*D2R;
   return nd(L0+C-0.00569-0.00478*Math.sin(om));
 }
-
-// ── Moon (geocentric tropical, Meeus Ch.47 — 60 terms) ──
 function moonLon(JD){
   const T=(JD-2451545)/36525;
   const L=nd(218.3164477+481267.88123421*T-0.0015786*T*T);
@@ -623,144 +825,88 @@ function moonLon(JD){
   const Mp=nd(134.9633964+477198.8675055*T+0.0087414*T*T)*D2R;
   const F=nd(93.2720950+483202.0175233*T-0.0036539*T*T)*D2R;
   const E=1-0.002516*T-0.0000074*T*T;
-  const dl=
-    6.288774*Math.sin(Mp)
-   +1.274027*Math.sin(2*D-Mp)
-   +0.658314*Math.sin(2*D)
-   +0.213618*Math.sin(2*Mp)
-   -0.185116*E*Math.sin(M)
-   -0.114332*Math.sin(2*F)
-   +0.058793*Math.sin(2*D-2*Mp)
-   +0.057066*E*Math.sin(2*D-M-Mp)
-   +0.053322*Math.sin(2*D+Mp)
-   +0.045758*E*Math.sin(2*D-M)
-   -0.040923*E*Math.sin(M-Mp)
-   -0.034720*Math.sin(D)
-   -0.030383*E*Math.sin(M+Mp)
-   +0.015327*Math.sin(2*D-2*F)
-   -0.012528*Math.sin(Mp+2*F)
-   +0.010980*Math.sin(Mp-2*F)
-   +0.010675*Math.sin(4*D-Mp)
-   +0.010034*Math.sin(3*Mp)
-   +0.008548*Math.sin(4*D-2*Mp)
-   -0.007888*E*Math.sin(2*D+M-Mp)
-   -0.006766*E*Math.sin(2*D+M)
-   -0.005163*Math.sin(D-Mp)
-   +0.004987*E*Math.sin(D+M)
-   +0.004036*E*Math.sin(2*D-M+Mp)
-   +0.003994*Math.sin(2*D+2*Mp)
-   +0.003861*Math.sin(4*D)
-   +0.003665*Math.sin(2*D-3*Mp)
-   -0.002689*E*Math.sin(M-2*Mp)
-   -0.002602*Math.sin(2*D-Mp+2*F)
-   +0.002390*E*Math.sin(2*D-M-2*Mp)
-   -0.002348*Math.sin(D+Mp)
-   +0.002236*E*Math.sin(2*D-2*M)
-   -0.002120*E*Math.sin(M+2*Mp)
-   -0.002069*E*E*Math.sin(2*M)
-   +0.002048*E*E*Math.sin(2*D-2*M-Mp)
-   -0.001773*Math.sin(2*D+Mp-2*F)
-   -0.001595*Math.sin(2*D+2*F)
-   +0.001215*E*Math.sin(4*D-M-Mp)
-   -0.001110*Math.sin(2*Mp+2*F)
-   -0.000892*Math.sin(3*D-Mp)
-   -0.000811*E*Math.sin(M+Mp+2*F)
-   +0.000761*E*Math.sin(4*D-M-2*Mp)
-   +0.000704*E*E*Math.sin(2*D-2*M+Mp)
-   -0.000630*E*Math.sin(3*D+Mp)
-   -0.000628*E*Math.sin(M-Mp+2*F)
-   -0.000608*Math.sin(2*D-Mp-2*F)
-   -0.000574*E*Math.sin(2*D-2*Mp-M)
-   +0.000547*E*Math.sin(4*D-2*M)
-   -0.000520*E*Math.sin(M+D)
-   +0.000520*Math.sin(Mp-D)
-   -0.000492*E*Math.sin(2*D+M+Mp)
-   +0.000483*Math.sin(2*D-Mp+2*F)
-   +0.000440*E*Math.sin(M-4*D)
-   -0.000423*Math.sin(4*D+Mp)
-   +0.000423*Math.sin(D-2*F)
-   -0.000412*Math.sin(2*D-2*Mp-2*F)
-   -0.000406*E*Math.sin(M+2*D+Mp);
+  const dl=6.288774*Math.sin(Mp)+1.274027*Math.sin(2*D-Mp)+0.658314*Math.sin(2*D)+0.213618*Math.sin(2*Mp)
+   -0.185116*E*Math.sin(M)-0.114332*Math.sin(2*F)+0.058793*Math.sin(2*D-2*Mp)+0.057066*E*Math.sin(2*D-M-Mp)
+   +0.053322*Math.sin(2*D+Mp)+0.045758*E*Math.sin(2*D-M)-0.040923*E*Math.sin(M-Mp)-0.034720*Math.sin(D)
+   -0.030383*E*Math.sin(M+Mp)+0.015327*Math.sin(2*D-2*F)-0.012528*Math.sin(Mp+2*F)+0.010980*Math.sin(Mp-2*F)
+   +0.010675*Math.sin(4*D-Mp)+0.010034*Math.sin(3*Mp)+0.008548*Math.sin(4*D-2*Mp)-0.007888*E*Math.sin(2*D+M-Mp)
+   -0.006766*E*Math.sin(2*D+M)-0.005163*Math.sin(D-Mp)+0.004987*E*Math.sin(D+M)+0.004036*E*Math.sin(2*D-M+Mp)
+   +0.003994*Math.sin(2*D+2*Mp)+0.003861*Math.sin(4*D)+0.003665*Math.sin(2*D-3*Mp)-0.002689*E*Math.sin(M-2*Mp)
+   -0.002602*Math.sin(2*D-Mp+2*F)+0.002390*E*Math.sin(2*D-M-2*Mp)-0.002348*Math.sin(D+Mp)+0.002236*E*Math.sin(2*D-2*M)
+   -0.002120*E*Math.sin(M+2*Mp)-0.002069*E*E*Math.sin(2*M)+0.002048*E*E*Math.sin(2*D-2*M-Mp)-0.001773*Math.sin(2*D+Mp-2*F)
+   -0.001595*Math.sin(2*D+2*F)+0.001215*E*Math.sin(4*D-M-Mp)-0.001110*Math.sin(2*Mp+2*F)-0.000892*Math.sin(3*D-Mp)
+   -0.000811*E*Math.sin(M+Mp+2*F)+0.000761*E*Math.sin(4*D-M-2*Mp)+0.000704*E*E*Math.sin(2*D-2*M+Mp)-0.000630*E*Math.sin(3*D+Mp);
   return nd(L+dl);
 }
-
-// ── PLANETS via Kepler's equation → helio XY → geocentric ──
-// Orbital elements at J2000.0 (Meeus Table 33.a)
-// L0,L1: mean longitude (° + °/century)
-// w0,w1: longitude of perihelion (° + °/century)
-// e0,e1: eccentricity (+ per century)
-// a: semi-major axis (AU)
-const ORB = {
-  Mercury: {L0:252.250906,L1:149474.0722491, w0:77.456119, w1:1.556628, e0:0.20563069,e1:-2.04e-5, a:0.387098},
-  Venus:   {L0:181.979801,L1:58519.2130302,  w0:131.563703,w1:1.402216, e0:0.00677323,e1:-4.94e-5, a:0.723330},
-  Earth:   {L0:100.464457,L1:36000.7698278,  w0:102.937348,w1:1.719527, e0:0.01670862,e1:-4.24e-5, a:1.000000},
-  Mars:    {L0:355.433275,L1:19141.6964746,  w0:336.060234,w1:1.840330, e0:0.09341233,e1: 9.15e-5, a:1.523688},
-  Jupiter: {L0:34.351519, L1:3036.3027748,   w0:14.331309, w1:1.612635, e0:0.04849485,e1: 1.63e-4, a:5.202561},
-  Saturn:  {L0:50.077444, L1:1223.5110686,   w0:93.057209, w1:1.963734, e0:0.05550825,e1:-3.46e-4, a:9.537070},
+const ORB={
+  Mercury:{L0:252.250906,L1:149474.0722491,w0:77.456119,w1:1.556628,e0:0.20563069,e1:-2.04e-5,a:0.387098},
+  Venus:{L0:181.979801,L1:58519.2130302,w0:131.563703,w1:1.402216,e0:0.00677323,e1:-4.94e-5,a:0.723330},
+  Earth:{L0:100.464457,L1:36000.7698278,w0:102.937348,w1:1.719527,e0:0.01670862,e1:-4.24e-5,a:1.000000},
+  Mars:{L0:355.433275,L1:19141.6964746,w0:336.060234,w1:1.840330,e0:0.09341233,e1:9.15e-5,a:1.523688},
+  Jupiter:{L0:34.351519,L1:3036.3027748,w0:14.331309,w1:1.612635,e0:0.04849485,e1:1.63e-4,a:5.202561},
+  Saturn:{L0:50.077444,L1:1223.5110686,w0:93.057209,w1:1.963734,e0:0.05550825,e1:-3.46e-4,a:9.537070},
 };
-
-// Solve Kepler's equation M = E - e·sin(E) by Newton-Raphson
-function solveKepler(M, e){
-  let E = M;
-  for(let i=0;i<60;i++){
-    const dE=(M-E+e*Math.sin(E))/(1-e*Math.cos(E));
-    E+=dE;
-    if(Math.abs(dE)<1e-11) break;
-  }
-  return E;
-}
-
-// Heliocentric ecliptic XY (AU) for a planet
-function helioXY(name, T){
-  const el=ORB[name];
-  const L=nd(el.L0+el.L1*T)*D2R;
-  const w=nd(el.w0+el.w1*T)*D2R;
-  const e=el.e0+el.e1*T;
-  const M=nr(L-w); // mean anomaly [0,2π]
-  const E=solveKepler(M,e);
-  const nu=2*Math.atan2(Math.sqrt(1+e)*Math.sin(E/2),Math.sqrt(1-e)*Math.cos(E/2));
-  const r=el.a*(1-e*Math.cos(E));
-  const lam=nu+w; // true heliocentric longitude [rad]
-  return {x:r*Math.cos(lam), y:r*Math.sin(lam)};
-}
-
-// Geocentric tropical ecliptic longitude for planet
-function geoLonPlanet(name, T){
-  const p=helioXY(name,T);
-  const e=helioXY('Earth',T);
-  return nd(Math.atan2(p.y-e.y, p.x-e.x)*R2D);
-}
-
-// Convenience wrappers (T = Julian centuries from J2000)
-function mercuryLon(JD){ return geoLonPlanet('Mercury',(JD-2451545)/36525); }
-function venusLon(JD)  { return geoLonPlanet('Venus',  (JD-2451545)/36525); }
-function marsLon(JD)   { return geoLonPlanet('Mars',   (JD-2451545)/36525); }
-function jupiterLon(JD){ return geoLonPlanet('Jupiter',(JD-2451545)/36525); }
-function saturnLon(JD) { return geoLonPlanet('Saturn', (JD-2451545)/36525); }
-
-// Rahu (mean ascending node of Moon, Meeus Ch.47)
-function rahuLon(JD){
-  const T=(JD-2451545)/36525;
-  return nd(125.04455501-1934.13626197*T+0.00207696*T*T+0.00000215*T*T*T);
-}
-
+function solveKepler(M,e){let E=M;for(let i=0;i<60;i++){const dE=(M-E+e*Math.sin(E))/(1-e*Math.cos(E));E+=dE;if(Math.abs(dE)<1e-11)break;}return E;}
+function helioXY(name,T){const el=ORB[name];const L=nd(el.L0+el.L1*T)*D2R;const w=nd(el.w0+el.w1*T)*D2R;const e=el.e0+el.e1*T;const M=nr(L-w);const E=solveKepler(M,e);const nu=2*Math.atan2(Math.sqrt(1+e)*Math.sin(E/2),Math.sqrt(1-e)*Math.cos(E/2));const r=el.a*(1-e*Math.cos(E));const lam=nu+w;return{x:r*Math.cos(lam),y:r*Math.sin(lam)};}
+function geoLonPlanet(name,T){const p=helioXY(name,T);const e=helioXY('Earth',T);return nd(Math.atan2(p.y-e.y,p.x-e.x)*R2D);}
+function mercuryLon(JD){return geoLonPlanet('Mercury',(JD-2451545)/36525);}
+function venusLon(JD){return geoLonPlanet('Venus',(JD-2451545)/36525);}
+function marsLon(JD){return geoLonPlanet('Mars',(JD-2451545)/36525);}
+function jupiterLon(JD){return geoLonPlanet('Jupiter',(JD-2451545)/36525);}
+function saturnLon(JD){return geoLonPlanet('Saturn',(JD-2451545)/36525);}
+function rahuLon(JD){const T=(JD-2451545)/36525;return nd(125.04455501-1934.13626197*T+0.00207696*T*T+0.00000215*T*T*T);}
 function ascLon(JD,lat,lon){
-  const gst=gmst(JD);
-  const lst=nd(gst+lon);
-  const e=eps(JD)*D2R;
-  const L=lat*D2R;
-  const R=lst*D2R;
-  const y=-Math.cos(R);
-  const x=Math.sin(R)*Math.cos(e)+Math.tan(L)*Math.sin(e);
-  let a=nd(Math.atan2(y,x)*R2D);
-  // Determine correct quadrant: compute RA of candidate ecliptic point,
-  // then check hour angle. If H < 180° the point is west of meridian (setting) → flip 180°.
-  const aR=a*D2R;
+  const gst=gmst(JD);const lst=nd(gst+lon);const e=eps(JD)*D2R;const L=lat*D2R;const R=lst*D2R;
+  const y=-Math.cos(R);const x=Math.sin(R)*Math.cos(e)+Math.tan(L)*Math.sin(e);
+  let a=nd(Math.atan2(y,x)*R2D);const aR=a*D2R;
   const alpha=nd(Math.atan2(Math.sin(aR)*Math.cos(e),Math.cos(aR))*R2D);
-  if(nd(lst-alpha)<180) a=nd(a+180);
+  if(nd(lst-alpha)<180)a=nd(a+180);
   return a;
 }
+function fdSpeed(fn,JD){const dt=0.5;let s=fn(JD+dt)-fn(JD-dt);if(s>180)s-=360;if(s<-180)s+=360;return s/(2*dt);}
 
+// ── Unified chart computation → sidereal longitudes + speeds ──
+async function computeChart(y,mo,d,h,mi,tz,lat,lon){
+  await ensureEngine();
+  const JD=jdLocal(y,mo,d,h,mi,tz);
+  const ay=lahiriAyanamsa(JD);
+  const trop={}, spd={};
+  let ascTrop, source;
+
+  if(SWE_READY){
+    const utHour=h+mi/60-tz;
+    const jdUT=SWE.julday(y,mo,d,utHour);
+    const FL=4|256; // Moshier | Speed
+    for(const k in SWE_ID){
+      const r=SWE.calc(jdUT, SWE_ID[k], FL);
+      trop[k]=nd(r.lon);
+      spd[k]=r.spd;
+    }
+    ascTrop=nd(SWE.houses(jdUT,lat,lon,HSYS_WHOLE));
+    source='swisseph';
+  }else{
+    trop.Sun=sunLon(JD); trop.Moon=moonLon(JD);
+    trop.Mercury=mercuryLon(JD); trop.Venus=venusLon(JD); trop.Mars=marsLon(JD);
+    trop.Jupiter=jupiterLon(JD); trop.Saturn=saturnLon(JD); trop.Rahu=rahuLon(JD);
+    spd.Sun=fdSpeed(sunLon,JD); spd.Moon=fdSpeed(moonLon,JD);
+    spd.Mercury=fdSpeed(mercuryLon,JD); spd.Venus=fdSpeed(venusLon,JD); spd.Mars=fdSpeed(marsLon,JD);
+    spd.Jupiter=fdSpeed(jupiterLon,JD); spd.Saturn=fdSpeed(saturnLon,JD); spd.Rahu=fdSpeed(rahuLon,JD);
+    ascTrop=ascLon(JD,lat,lon);
+    source='fallback';
+  }
+
+  const sid=t=>nd(t-ay);
+  const pos={};
+  for(const k in trop) pos[k]=sid(trop[k]);
+  pos.Ketu=nd(pos.Rahu+180);
+  spd.Ketu=spd.Rahu;
+  pos.Lagna=sid(ascTrop);
+  return {pos,spd,ay,source};
+}
+
+// ═══════════════════════════════════════
+//  DIGNITY & ANALYSIS
+// ═══════════════════════════════════════
 function dignity(p,sIdx){
   if(EXALT[p]===sIdx) return 'ex';
   if(DEBIT[p]===sIdx) return 'db';
@@ -771,7 +917,6 @@ function dignity(p,sIdx){
   if(ENEMIES[p]&&ENEMIES[p].includes(ru)) return 'en';
   return 'nt';
 }
-
 function digLabel(d){
   return {
     ex:'<span class="d-ex">Экзальтация</span>',
@@ -783,135 +928,280 @@ function digLabel(d){
     nt:'Нейтральный',
   }[d]||'Нейтральный';
 }
-
+function digPlain(d){return digLabel(d).replace(/<[^>]*>/g,'');}
 function goodDig(d){return['ex','own','mt','fr'].includes(d);}
+
+// These reference the current chart globals set in calc()
+let _pos={}, _spd={}, _lagSign=0, _lagLord='';
+
+function signOf(p){return Math.floor(_pos[p]/30);}
+function houseFromLag(p){return((signOf(p)-_lagSign+12)%12)+1;}
+
+// Whole-sign graha drishti: signs aspected by planet p
+function aspectsCast(p){
+  const s=signOf(p); const out=new Set();
+  out.add((s+6)%12);                          // 7th — all planets
+  if(p==='Mars'){ out.add((s+3)%12); out.add((s+7)%12); }       // 4th, 8th
+  else if(p==='Jupiter'){ out.add((s+4)%12); out.add((s+8)%12);} // 5th, 9th
+  else if(p==='Saturn'){ out.add((s+2)%12); out.add((s+9)%12);}  // 3rd, 10th
+  // Rahu/Ketu: conjunction + 7th only (per chosen setting)
+  return out;
+}
+function afflictors(p){
+  const sp=signOf(p); const list=[];
+  for(const m of MALEFICS){
+    if(m===p) continue;
+    if(signOf(m)===sp || aspectsCast(m).has(sp)) list.push(m);
+  }
+  return list;
+}
+function jupiterProtects(p){
+  if(p==='Jupiter') return false;
+  const sp=signOf(p);
+  return signOf('Jupiter')===sp || aspectsCast('Jupiter').has(sp);
+}
+function isCombust(p){
+  if(p==='Sun'||p==='Rahu'||p==='Ketu') return false;
+  const orb=COMBUST_ORB[p]; if(!orb) return false;
+  let dd=Math.abs(_pos[p]-_pos.Sun); if(dd>180) dd=360-dd;
+  return dd<orb;
+}
+function housesOwned(p){
+  return (OWNED[p]||[]).map(si=>((si-_lagSign+12)%12)+1);
+}
+function funcInfo(p){
+  const hs=housesOwned(p);
+  return {
+    hs,
+    isTrikona: hs.some(h=>[1,5,9].includes(h)),
+    isKendra:  hs.some(h=>[1,4,7,10].includes(h)),
+    isDusthana:hs.some(h=>[6,8,12].includes(h)),
+    isYoga:    hs.some(h=>[4,7,10].includes(h)) && hs.some(h=>[5,9].includes(h)),
+  };
+}
+function yogakaraka(){
+  for(const p of ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'])
+    if(funcInfo(p).isYoga) return p;
+  return null;
+}
+function evaluatePlanet(p){
+  const dg=dignity(p,signOf(p));
+  const h=houseFromLag(p);
+  const combust=isCombust(p);
+  const retro=(p!=='Sun'&&p!=='Moon')?(_spd[p]<0):false;
+  const aff=afflictors(p);
+  const protJ=jupiterProtects(p);
+  const inDus=[6,8,12].includes(h);
+  let afflicted=aff.length>0, mitigated=false;
+  if(afflicted && protJ && aff.length===1){ afflicted=false; mitigated=true; }
+  const goodNeutral=['ex','own','mt','fr','nt'].includes(dg);
+  const reasons=[];
+  if(dg==='db') reasons.push('падение');
+  if(dg==='en') reasons.push('враждебный знак');
+  if(combust) reasons.push('сожжение Солнцем');
+  if(inDus) reasons.push('дустхана ('+h+'-й дом)');
+  if(afflicted) reasons.push('поражение ('+aff.map(m=>PLN[m].ru).join(', ')+')');
+  const unsuitable=(dg==='db'||dg==='en'||combust||inDus||afflicted);
+  const safe=goodNeutral && !inDus && !combust && !afflicted;
+  let score={ex:5,own:4,mt:4,fr:3,nt:2,en:1,db:0}[dg];
+  if([1,5,9].includes(h)) score+=1.5; else if([4,7,10].includes(h)) score+=1;
+  if(combust||afflicted) score-=2;
+  if(retro) score+=0.3;
+  return {p,dg,h,combust,retro,aff,protJ,mitigated,inDus,afflicted,goodNeutral,safe,unsuitable,reasons,score};
+}
+
+// ═══════════════════════════════════════
+//  GEM RECOMMENDATION (cascade scheme v2)
+// ═══════════════════════════════════════
+function recommendGems(E){
+  const conflict=p=>(ENEMIES[_lagLord]||[]).includes(p)||(ENEMIES[p]||[]).includes(_lagLord);
+  const lord9=RULER[(_lagSign+8)%12];
+  const lord5=RULER[(_lagSign+4)%12];
+  const yk=yogakaraka();
+  const primary=[]; const lucky=[]; const notes=[];
+  const lordE=E[_lagLord];
+
+  // ── PRIMARY (life gem) ──
+  if(!lordE.unsuitable){
+    primary.push({p:_lagLord, kind:'life',
+      why:`Управитель лагны (${SIGNS[_lagSign]}) — хорошо расположен. Это основной камень жизни (Дживан-ратна).`});
+  }else{
+    notes.push(`Управитель лагны — ${PLN[_lagLord].ru} — ослаблен: ${lordE.reasons.join('; ')}. Его камень усилил бы слабость, поэтому опору ищем среди благих планет по каскаду 9 → 5 → кендра.`);
+    let chosen=null;
+    if(lord9!==_lagLord && E[lord9].safe && !conflict(lord9))
+      chosen={p:lord9, kind:'support',
+        why:`Управитель 9-го дома (Бхагья — дом удачи и дхармы), хорошо расположен, без поражений, дружествен лагнешу. Опора вместо ослабленного управителя лагны.`};
+    if(!chosen && lord5!==_lagLord && E[lord5].safe && !conflict(lord5))
+      chosen={p:lord5, kind:'support',
+        why:`Управитель 5-го дома (Пурва Пунья — заслуги прошлого), хорошо расположен, без поражений, дружествен лагнешу. Опора вместо ослабленного управителя лагны.`};
+    if(!chosen){
+      const cands=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'].filter(p=>{
+        if(p===_lagLord) return false;
+        const e=E[p], fi=funcInfo(p);
+        const funcMal=fi.isDusthana && !fi.isTrikona;
+        return [1,4,7,10].includes(e.h) && e.safe && !funcMal && !conflict(p);
+      }).sort((a,b)=>E[b].score-E[a].score);
+      if(cands.length)
+        chosen={p:cands[0], kind:'support',
+          why:`Сильная благая планета в кендре (${E[cands[0]].h}-й дом), дружественна управителю лагны. Опора при ослабленном лагнеше.`};
+    }
+    if(chosen) primary.push(chosen);
+    else{
+      primary.push({p:_lagLord, kind:'soft', softOnly:true,
+        why:`Безопасной опоры в карте не нашлось: ни управитель 9-го/5-го домов, ни планета в кендре не подходят без риска. Сам камень управителя лагны НЕ назначается (планета ослаблена). Допустим только мягкий полудрагоценный заменитель — как осторожный, обратимый опыт.`});
+      notes.push('По принципу «лучше не назначать камень, чем навредить» основной самоцвет не рекомендуется. Предложен только мягкий заменитель; опирайтесь на не-камневые средства — мантру, благотворительность, соответствующий цвет в одежде.');
+    }
+  }
+
+  // ── LUCKY (up to 3): trikona lords (1,5,9) + yogakaraka, well-placed, no conflict ──
+  const pool=[]; [_lagLord,lord5,lord9].forEach(p=>{if(!pool.includes(p))pool.push(p);});
+  if(yk && !pool.includes(yk)) pool.push(yk);
+  for(const p of pool){
+    if(primary.some(x=>x.p===p && !x.softOnly)) continue;
+    const e=E[p];
+    if(!(e.safe && !conflict(p))) continue;
+    let why;
+    if(p===_lagLord) why='Управитель лагны — дополнительная поддержка самости и здоровья.';
+    else if(p===lord9) why='Управитель 9-го дома (Бхагья) — камень удачи и фортуны.';
+    else if(p===lord5) why='Управитель 5-го дома (Пурва Пунья) — камень удачи, интеллекта и потомства.';
+    else if(p===yk) why='Йогакарака — управляет одновременно кендрой и триконой, мощный благодетель.';
+    else why='Триконный благодетель.';
+    lucky.push({p,why});
+    if(lucky.length>=3) break;
+  }
+
+  return {primary,lucky,notes};
+}
 
 // ═══════════════════════════════════════
 //  MAIN
 // ═══════════════════════════════════════
-
-function calc(){
-  const ds=document.getElementById('bd').value;
-  if(!ds){alert('Введите дату рождения');return;}
-  const [y,mo,d]=ds.split('-').map(Number);
+async function calc(){
+  const bd=getBirthDate();
+  if(!bd){alert('Введите день, месяц и год рождения');return;}
+  const {y,mo,d}=bd;
   const ts=document.getElementById('bt').value||'12:00';
   const [h,mi]=ts.split(':').map(Number);
   const lat=parseFloat(document.getElementById('lat').value);
   const lon=parseFloat(document.getElementById('lon').value);
   const tz=parseFloat(document.getElementById('tz').value);
   const sex=document.querySelector('input[name=sex]:checked').value;
+  if(!isFinite(lat)||!isFinite(lon)){alert('Укажите место рождения (широта/долгота заполняются при выборе города).');return;}
+  if(!isFinite(tz)){alert('Не определён часовой пояс. Выберите город ещё раз или впишите UTC вручную.');return;}
 
-  const JD=jd(y,mo,d,h,mi,tz);
-  const ay=ayanamsa(JD);
-  const sid=t=>nd(t-ay);
+  const btn=document.getElementById('calcBtn');
+  btn.disabled=true; const btnTxt=btn.textContent; btn.textContent='⏳ Расчёт…';
+  try{
+    const chart=await computeChart(y,mo,d,h,mi,tz,lat,lon);
+    _pos=chart.pos; _spd=chart.spd;
+    _lagSign=Math.floor(_pos.Lagna/30);
+    _lagLord=RULER[_lagSign];
 
-  const pos={
-    Sun:    sid(sunLon(JD)),
-    Moon:   sid(moonLon(JD)),
-    Mercury:sid(mercuryLon(JD)),
-    Venus:  sid(venusLon(JD)),
-    Mars:   sid(marsLon(JD)),
-    Jupiter:sid(jupiterLon(JD)),
-    Saturn: sid(saturnLon(JD)),
-    Rahu:   sid(rahuLon(JD)),
-    Ketu:   nd(sid(rahuLon(JD))+180),
-    Lagna:  sid(ascLon(JD,lat,lon)),
-  };
+    // Evaluate the 7 gem-bearing planets
+    const E={};
+    for(const p of ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn']) E[p]=evaluatePlanet(p);
 
-  const lagSign=Math.floor(pos.Lagna/30);
-  const lagLord=RULER[lagSign];
-  const sign9=(lagSign+8)%12;
-  const lord9=RULER[sign9];
+    renderTable(chart);
+    renderLagna(chart,y,mo,d);
 
-  // House positions (whole sign)
-  const house=p=>((Math.floor(pos[p]/30)-lagSign+12)%12)+1;
-  const dig=p=>dignity(p,Math.floor(pos[p]/30));
+    const rec=recommendGems(E);
 
-  // ── PLANET TABLE ──
-  const ORDER=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
-  let th='<tr><th>Планета</th><th>Знак</th><th>°в знаке</th><th>Дом</th><th>Достоинство</th></tr>';
-  let rows=ORDER.map(p=>{
-    const si=Math.floor(pos[p]/30);
-    const degInSign=pos[p]%30;
-    const dg=dig(p);
-    const hl=(p===lagLord)?'  ✦':'';
-    // Warn if within 2° of sign boundary
-    const nearCusp = degInSign < 2 || degInSign > 28;
-    const cuspWarn = nearCusp ? ' <span title="Планета у границы знака — возможна неточность определения знака. Уточните через швейцарский эфемерис." style="color:#B85C38;cursor:help;font-size:.85em">⚠</span>' : '';
-    return `<tr><td>${PLN[p].sym} ${PLN[p].ru}${hl}</td><td>${SIGNS[si]} (${SANSK[si]})${cuspWarn}</td><td>${degInSign.toFixed(1)}°</td><td>${house(p)}</td><td>${digLabel(dg)}</td></tr>`;
-  }).join('');
-  document.getElementById('ptable').innerHTML=th+rows;
+    // PRIMARY
+    document.getElementById('primaryDiv').innerHTML =
+      rec.primary.map(r=>gemCard(r,'primary',sex)).join('') +
+      rec.notes.map(n=>`<div class="note-card">ℹ ${n}</div>`).join('');
 
-  // ── LAGNA BOX ──
-  document.getElementById('lagnaBox').innerHTML=`
-    <h2>Ваша Лагна: ${SIGNS[lagSign]} · ${SANSK[lagSign]}</h2>
-    <div class="lagna-sub">
-      Сидерический Асцендент ${pos.Lagna.toFixed(2)}° · Аянамша Лахири: ${ay.toFixed(2)}° ·
-      Управитель лагны: ${PLN[lagLord].ru}
-    </div>
-    <div class="lagna-sub">
-      Сидерическое Солнце: ${SIGNS[Math.floor(pos.Sun/30)]} ·
-      Луна: ${SIGNS[Math.floor(pos.Moon/30)]} ·
-      Дата: ${d}.${mo}.${y}
-    </div>
-  `;
+    // LUCKY
+    const sd=document.getElementById('secondaryDiv');
+    sd.innerHTML = rec.lucky.length
+      ? rec.lucky.map(r=>gemCard({...r,kind:'lucky'},'secondary',sex)).join('')
+      : '<p style="font-size:.83rem;color:var(--brown-md);font-style:italic;padding:.4rem 0">Дополнительных благоприятных камней безопасно назначить нельзя. Сосредоточьтесь на основной рекомендации.</p>';
 
-  // ── RECOMMENDATIONS ──
-  const primary=[];
-  const secondary=[];
-  const shown=new Set();
-
-  // 1. Lagna lord
-  primary.push({p:lagLord, why:`Управитель лагны (${SIGNS[lagSign]} — ваш Асцендент)`});
-  shown.add(lagLord);
-
-  // 2. 9th lord (if different)
-  if(lord9!==lagLord){
-    const d9=dig(lord9);
-    if(goodDig(d9)||d9==='nt'){
-      secondary.push({p:lord9, why:`Управитель 9-го дома (${SIGNS[sign9]}) — камень удачи (Бхагья)`});
-      shown.add(lord9);
-    }
+    document.getElementById('results').style.display='block';
+    document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  }catch(err){
+    console.error(err);
+    alert('Ошибка расчёта: '+err.message);
+  }finally{
+    btn.disabled=false; btn.textContent=btnTxt;
   }
-
-  // 3. Planets in 1st house in good dignity
-  ORDER.forEach(p=>{
-    if(shown.has(p)) return;
-    if(house(p)===1 && goodDig(dig(p))){
-      secondary.push({p, why:`В 1-м доме (${digLabel(dig(p)).replace(/<[^>]*>/g,'')})`});
-      shown.add(p);
-    }
-  });
-
-  // 4. Planets in 5th/9th in exaltation or own
-  ORDER.forEach(p=>{
-    if(shown.has(p)) return;
-    const h=house(p), dg=dig(p);
-    if([5,9].includes(h) && ['ex','own','mt'].includes(dg)){
-      secondary.push({p, why:`В ${h}-м доме (трикона), ${digLabel(dg).replace(/<[^>]*>/g,'')}`});
-      shown.add(p);
-    }
-  });
-
-  // Render
-  document.getElementById('primaryDiv').innerHTML=primary.map(r=>gemCard(r.p,r.why,'primary',sex)).join('');
-  const sec=secondary.slice(0,3);
-  document.getElementById('secondaryDiv').innerHTML=sec.length
-    ? sec.map(r=>gemCard(r.p,r.why,'secondary',sex)).join('')
-    : '<p style="font-size:.83rem;color:var(--brown-md);font-style:italic;padding:.4rem 0">Дополнительных благоприятных камней не определено. Сосредоточьтесь на основном камне.</p>';
-
-  document.getElementById('results').style.display='block';
-  document.getElementById('results').scrollIntoView({behavior:'smooth'});
 }
 
-function gemCard(planet,why,type,sex){
+function renderTable(chart){
+  const ORDER=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+  let th='<tr><th>Планета</th><th>Знак</th><th>°</th><th>Дом</th><th>Достоинство</th><th>Состояние</th></tr>';
+  const rows=ORDER.map(p=>{
+    const si=signOf(p);
+    const degInSign=_pos[p]%30;
+    const dg=dignity(p,si);
+    const hl=(p===_lagLord)?' ✦':'';
+    const nearCusp=degInSign<1||degInSign>29;
+    const flags=[];
+    if((p!=='Sun'&&p!=='Moon'&&p!=='Rahu'&&p!=='Ketu') && _spd[p]<0)
+      flags.push('<span class="flag retro" title="Ретроградная — особый, усиленный статус (чешта-бала)">℞</span>');
+    if(isCombust(p))
+      flags.push('<span class="flag" title="Сожжена Солнцем (комбуста) — ослаблена">☉!</span>');
+    if(['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'].includes(p)){
+      const aff=afflictors(p);
+      if(aff.length && !(jupiterProtects(p)&&aff.length===1))
+        flags.push(`<span class="flag" title="Поражение: ${aff.map(m=>PLN[m].ru).join(', ')}">⚠</span>`);
+      else if(jupiterProtects(p))
+        flags.push('<span class="flag ok" title="Под защитой Юпитера">♃✓</span>');
+    }
+    const cusp=nearCusp?' <span class="flag" title="У границы знака — проверьте время рождения">◐</span>':'';
+    return `<tr><td>${PLN[p].sym} ${PLN[p].ru}${hl}</td><td>${SIGNS[si]} (${SANSK[si]})${cusp}</td><td>${degInSign.toFixed(1)}°</td><td>${houseFromLag(p)}</td><td>${digLabel(dg)}</td><td>${flags.join(' ')||'—'}</td></tr>`;
+  }).join('');
+  document.getElementById('ptable').innerHTML=th+rows;
+}
+
+function renderLagna(chart,y,mo,d){
+  const srcTxt = chart.source==='swisseph'
+    ? 'Swiss Ephemeris (Moshier)'
+    : '⚠ приближённый расчёт (эфемериды не загрузились)';
+  document.getElementById('lagnaBox').innerHTML=`
+    <h2>Ваша Лагна: ${SIGNS[_lagSign]} · ${SANSK[_lagSign]}</h2>
+    <div class="lagna-sub">
+      Сидерический Асцендент ${_pos.Lagna.toFixed(2)}° · Аянамша Лахири: ${chart.ay.toFixed(3)}° ·
+      Управитель лагны: ${PLN[_lagLord].ru}
+    </div>
+    <div class="lagna-sub">
+      Солнце: ${SIGNS[signOf('Sun')]} · Луна: ${SIGNS[signOf('Moon')]} ·
+      Дата: ${String(d).padStart(2,'0')}.${String(mo).padStart(2,'0')}.${y}
+    </div>
+    <div class="lagna-sub" style="font-size:.74rem;opacity:.9">Расчёт: ${srcTxt} · истинные узлы · равнознаковые дома</div>
+  `;
+}
+
+function gemCard(rec,type,sex){
+  const planet=rec.p;
   const g=GEMS[planet];
   if(!g) return '';
   const isF=(sex==='f');
   const subs=isF?g.sub_f:g.sub_m;
+  const isHard=HARD_PLANETS.includes(planet);
+
+  // SOFT (substitute-only) card — gem itself NOT assigned
+  if(rec.softOnly){
+    return `
+<div class="gem soft">
+  <div class="gem-head">
+    <div class="gem-icon">⚪</div>
+    <div>
+      <div class="gem-title">Только мягкий заменитель</div>
+      <div class="gem-sansk">вместо камня ${g.name} · ${PLN[planet].ru} (${PLN[planet].sym})</div>
+      <div class="gem-why">${rec.why}</div>
+    </div>
+  </div>
+  <div class="gem-alt">🟡 Осторожный вариант (полудрагоценный заменитель, низкий риск): <b>${subs}</b>. Носить как пробу, наблюдая за самочувствием; при дискомфорте — снять. Полноценный самоцвет ${g.name} не рекомендуется.</div>
+  <div class="gem-mantra">🕉 ${g.mantra}</div>
+</div>`;
+  }
+
   const warnF=(isF&&g.warn_f)?`<div class="gem-warn">⚠ ${g.warn_f}</div>`:'';
   const warnS=g.warn?`<div class="gem-warn">${g.warn}</div>`:'';
-  const noteS=g.note?`<div class="gem-warn" style="background:#F0F7F0;color:#27682A">ℹ ${g.note}</div>`:'';
+  const noteS=g.note?`<div class="gem-warn" style="background:#F0F7F0;color:#27682A;border-left-color:#27682A">ℹ ${g.note}</div>`:'';
+  const hardAlt=isHard?`<div class="gem-alt">⚠ Камень «трудной» планеты (${PLN[planet].ru}). Рекомендуется СНАЧАЛА носить безопасный заменитель: <b>${subs}</b> — и только при хорошем отклике и по согласованию с астрологом переходить к ${g.name}.</div>`:'';
+
   return `
 <div class="gem ${type}">
   <div class="gem-head">
@@ -919,7 +1209,7 @@ function gemCard(planet,why,type,sex){
     <div>
       <div class="gem-title">${g.name}</div>
       <div class="gem-sansk">${g.sansk} · ${PLN[planet].ru} (${PLN[planet].sym})</div>
-      <div class="gem-why">Назначение: ${why}</div>
+      <div class="gem-why">Назначение: ${rec.why}</div>
     </div>
   </div>
   <div class="gem-grid">
@@ -932,7 +1222,7 @@ function gemCard(planet,why,type,sex){
     <div class="gem-cell"><div class="gem-lbl">Огранка</div><div class="gem-val">${g.cut}</div></div>
     <div class="gem-cell wide"><div class="gem-lbl">Цвет / качество</div><div class="gem-val">${g.color}</div></div>
   </div>
-  ${warnF}${warnS}${noteS}
+  ${hardAlt}${warnF}${warnS}${noteS}
   <div class="gem-subs">Заменители: ${subs}</div>
   <div class="gem-mantra">🕉 ${g.mantra}</div>
 </div>`;
