@@ -1227,6 +1227,25 @@ function gemCard(rec,type,sex){
   <div class="gem-mantra">🕉 ${g.mantra}</div>
 </div>`;
 }
+
+// ═══════════════════════════════════════
+//  ВСТРАИВАНИЕ (Tilda / iframe) — авто-высота
+//  Сообщает родительской странице высоту контента, чтобы <iframe> сам
+//  подстраивался под размер (без внутренней прокрутки). При открытии
+//  напрямую (вне фрейма) ничего не делает.
+// ═══════════════════════════════════════
+function postEmbedHeight(){
+  try{
+    if(window.parent && window.parent!==window){
+      const h=Math.ceil(Math.max(document.body.scrollHeight, document.documentElement.scrollHeight));
+      window.parent.postMessage({type:'astrostone-height', height:h}, '*');
+    }
+  }catch(e){}
+}
+window.addEventListener('load', postEmbedHeight);
+window.addEventListener('resize', postEmbedHeight);
+if(window.ResizeObserver){ try{ new ResizeObserver(postEmbedHeight).observe(document.body); }catch(e){} }
+document.addEventListener('DOMContentLoaded', ()=>{ setTimeout(postEmbedHeight, 300); });
 </script>
 </body>
 </html>
