@@ -4,288 +4,246 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Драгоценные Камни Джйотиш · С. Кройцер</title>
+<link rel="stylesheet" href="./astro-app.css">
 <style>
-:root {
-  --red:        #df2227;
-  --red-dk:     #c41f23;
-  --red-lt:     #f5b5b7;
-  --orange:     #ef5024;
-  --white:      #FFFFFF;
-  --cream:      #FFF9F5;
-  --beige:      #FFF9F5;
-  --gray:       #F5F5F5;
-  --gray-md:    #BFBFBF;
-  --gray-dk:    #5A5A5A;
-  --brown-md:   #8A6D5A;
-  --terra-dk:   #C0392B;
-  --green-dk:   #27682A;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#FFFFFF;color:var(--gray-dk);font-family:Arial,sans-serif;min-height:100vh}
+/* ── Компоненты этого приложения · палитра дизайн-системы (var(--c-*)) ── */
+body{margin:0;background:#fff}
+/* приложение встраивается через iframe — отступ под меню сайта здесь не нужен */
+.astro-app{--app-top-offset:24px}
 
-/* ── HEADER ── */
-header{
-  display:none;
-}
-.header-stars{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.header-stars::before,.header-stars::after{
-  content:'';
-  position:absolute;display:none;
-}
-.header-stars::before{top:0;left:-10%}
-.header-stars::after{bottom:0;left:-20%}
-.header-inner{position:relative;z-index:1;padding:2.2rem 1rem 2rem}
-.header-author{font-size:.72rem;letter-spacing:.45rem;color:var(--white);text-transform:uppercase;opacity:.95;margin-bottom:.9rem;display:block;font-weight:600}
-.header-gem{font-size:2.8rem;display:block;margin:.3rem 0;filter:drop-shadow(0 0 18px rgba(255,255,255,.4))}
-header h1{font-size:1.7rem;letter-spacing:.12rem;color:var(--white);text-shadow:0 0 30px rgba(0,0,0,.2);line-height:1.3;font-weight:700}
-.header-sub{font-size:.82rem;color:rgba(255,255,255,.95);font-style:italic;margin-top:.5rem;letter-spacing:.04rem}
-.header-ornament{display:none}
-.header-glow{display:none}
+/* статус движка */
+.engine-badge{display:block;margin-top:12px;padding:8px 12px;border-radius:var(--radius-sm);font-size:var(--fs-small);line-height:1.45;background:var(--c-cream);color:var(--c-ink-soft);border-left:4px solid var(--c-orange)}
+.engine-badge.fallback{border-left-color:var(--c-red);color:var(--c-red)}
 
-/* ── LAYOUT ── */
-.wrap{max-width:820px;margin:0 auto;padding:1.5rem}
+/* выбор даты «барабаном» */
+.date-spin-wrap{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.spin-unit{display:flex;flex-direction:column;align-items:center}
+.spin-unit label{font-size:var(--fs-small);color:var(--c-ink-soft);font-weight:700;margin-bottom:4px}
+.spin-box{display:flex;flex-direction:column;align-items:center;border:2px solid var(--c-line);border-radius:var(--radius-sm);overflow:hidden;background:var(--c-white);user-select:none}
+.spin-btn{background:var(--c-orange);border:none;width:100%;padding:7px 0;cursor:pointer;font-size:.85rem;color:var(--c-white);line-height:1}
+.spin-btn:hover{background:var(--c-red)}
+.spin-val{font-size:1.05rem;color:var(--c-ink);width:58px;text-align:center;padding:8px 0;min-height:42px;display:flex;align-items:center;justify-content:center;line-height:1.3}
+.spin-unit.wide .spin-val{width:78px}
+.spin-sep{font-size:1.3rem;color:var(--c-ink-soft);padding-bottom:10px}
 
-/* ── CARD ── */
-.card{background:var(--white);border:1px solid #EBEBEB;border-radius:8px;padding:1.4rem;margin-bottom:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.card-title{color:var(--red);font-size:1.05rem;margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:2px solid var(--red);display:flex;align-items:center;gap:.45rem;font-weight:600}
+/* пол */
+.radio-row{display:flex;gap:24px;margin-top:6px}
+.radio-row label{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:400}
+.astro-app .radio-row input[type=radio]{width:auto;min-height:auto;margin:0;accent-color:var(--c-red)}
+.hint{font-size:var(--fs-small);color:var(--c-ink-soft);font-weight:400}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.field-grid{grid-template-columns:1fr}}
 
-/* ── FORM ── */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-@media(max-width:520px){.grid2{grid-template-columns:1fr}}
-label.lbl{display:block;font-size:.82rem;color:var(--gray-dk);margin-bottom:.28rem;font-weight:500}
-input,select{width:100%;padding:.48rem .7rem;border:1px solid #DDD;border-radius:4px;background:#fff;color:var(--gray-dk);font-size:.93rem;font-family:Arial,sans-serif;outline:none;transition:border-color .18s}
-input:focus,select:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(231,76,60,.08)}
-.radio-row{display:flex;gap:1.2rem;margin-top:.3rem}
-.radio-row label{display:flex;align-items:center;gap:.35rem;cursor:pointer;font-style:normal;font-size:.9rem;color:var(--gray-dk)}
-.radio-row input[type=radio]{width:auto;accent-color:var(--red)}
-.btn{background:var(--red);color:var(--white);border:none;padding:.72rem 2rem;font-size:1rem;font-family:Arial,sans-serif;border-radius:4px;cursor:pointer;width:100%;margin-top:.9rem;letter-spacing:.04rem;transition:background .18s;font-weight:600}
-.btn:hover{background:var(--red-dk)}
-.btn:disabled{background:var(--gray-md);cursor:wait}
-
-/* ── ENGINE STATUS ── */
-.engine-badge{font-size:.74rem;padding:.3rem .55rem;border-radius:4px;margin-top:.6rem;display:inline-block;border-left:3px solid var(--green-dk);background:#F0F7F0;color:var(--green-dk)}
-.engine-badge.fallback{border-left-color:var(--terra-dk);background:#FFF0EB;color:var(--terra-dk)}
-.engine-badge.loading{border-left-color:var(--gray-md);background:var(--gray);color:var(--gray-dk)}
-
-/* ── RESULTS ── */
-#results{display:none}
-.lagna-box{background:var(--red);color:var(--white);border-radius:8px;padding:1.3rem 1.5rem;text-align:center;margin-bottom:1.4rem}
-.lagna-box h2{font-size:1.35rem;color:var(--white);font-weight:700}
-.lagna-sub{font-size:.82rem;color:rgba(255,255,255,.95);margin-top:.3rem;line-height:1.5}
-.sec-title{color:var(--red);font-size:.98rem;margin:1.4rem 0 .7rem;display:flex;align-items:center;gap:.45rem;padding-bottom:.38rem;border-bottom:2px solid var(--red);font-weight:600}
-
-/* ── PLANET TABLE ── */
-.ptable{width:100%;border-collapse:collapse;font-size:.8rem}
-.ptable th{background:var(--red);color:var(--white);padding:.38rem .55rem;text-align:left;font-weight:600}
-.ptable td{padding:.38rem .55rem;border-bottom:1px solid #EBEBEB;color:var(--gray-dk)}
-.ptable tr:nth-child(even) td{background:#F9F9F9}
-.d-ex{color:#27682A;font-weight:bold}
-.d-own{color:#1A5C8A;font-weight:bold}
-.d-deb{color:#8B2312;font-weight:bold}
-.d-ene{color:#8B4513}
-.d-fri{color:var(--gray-dk)}
-.flag{font-size:.72rem;color:var(--terra-dk);cursor:help}
-.flag.retro{color:#1A5C8A}
-.flag.ok{color:var(--green-dk)}
-
-/* ── GEM CARD ── */
-.gem{border-left:4px solid var(--red);padding:1.1rem;margin-bottom:.9rem;background:var(--white);border:1px solid #EBEBEB;border-left:4px solid var(--red);border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.gem.secondary{border-left-color:var(--orange)}
-.gem.soft{border-left-color:var(--gray-md);background:#FCFCFC}
-.gem-head{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start}
-.gem-icon{font-size:1.55rem;flex-shrink:0;margin-top:.05rem}
-.gem-title{font-size:1.05rem;color:var(--red);font-weight:700}
-.gem-sansk{font-size:.78rem;color:var(--gray-md);font-style:italic}
-.gem-why{font-size:.78rem;color:var(--gray-dk);margin-top:.15rem}
-.gem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;font-size:.79rem}
-@media(max-width:480px){.gem-grid{grid-template-columns:1fr 1fr}}
-.gem-cell{background:#F9F9F9;padding:.38rem .55rem;border-radius:4px}
-.gem-lbl{font-size:.7rem;color:var(--gray-md);font-weight:500;margin-bottom:.08rem}
-.gem-val{color:var(--gray-dk);font-weight:600;line-height:1.3}
-.gem-cell.wide{grid-column:span 2}
-.gem-cell.full{grid-column:1/-1}
-.gem-warn{background:#FFF0EB;color:#C0392B;font-size:.77rem;padding:.38rem .55rem;border-radius:4px;margin-top:.5rem;border-left:3px solid var(--red)}
-.gem-alt{background:#FFF8E8;color:#8A5A00;font-size:.77rem;padding:.45rem .6rem;border-radius:4px;margin-top:.5rem;border-left:3px solid #E0A800}
-.gem-subs{font-size:.77rem;color:var(--gray-dk);margin-top:.45rem;padding-top:.45rem;border-top:1px dashed #EBEBEB}
-.gem-mantra{font-size:.77rem;color:var(--red);font-style:italic;margin-top:.35rem}
-.note-card{background:#FBFBFB;border:1px solid #EBEBEB;border-left:3px solid var(--brown-md);border-radius:6px;padding:.7rem .9rem;margin-bottom:.9rem;font-size:.82rem;color:var(--gray-dk);line-height:1.55}
-
-.ornament{display:none}
-
-footer{display:none}
-
-/* scrollbar */
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:var(--cream)}
-::-webkit-scrollbar-thumb{background:var(--red-lt);border-radius:3px}
-
-/* ── DATE SPINNER ── */
-.date-spin-wrap{display:flex;gap:.5rem;align-items:center}
-.spin-unit{display:flex;flex-direction:column;align-items:center;gap:0}
-.spin-unit label{font-size:.7rem;color:var(--gray-md);font-weight:500;margin-bottom:.15rem}
-.spin-box{display:flex;flex-direction:column;align-items:center;border:1px solid #DDD;border-radius:4px;overflow:hidden;background:#fff;user-select:none}
-.spin-btn{background:#F9F9F9;border:none;width:100%;padding:.18rem 0;cursor:pointer;font-size:.75rem;color:var(--red);line-height:1;transition:background .12s;font-weight:600}
-.spin-btn:hover{background:#E74C3C;color:#fff}
-.spin-val{font-size:1.05rem;font-family:Arial,sans-serif;color:var(--gray-dk);width:52px;text-align:center;padding:.32rem 0;border-top:1px solid #DDD;border-bottom:1px solid #DDD;cursor:ns-resize;min-height:2.1rem;line-height:1.4}
-.spin-unit.wide .spin-val{width:72px}
-.spin-sep{font-size:1.2rem;color:var(--gray-md);padding-top:1.4rem;align-self:center}
-
-/* ── CITY SEARCH ── */
+/* поиск города */
 .city-wrap{position:relative}
-.city-drop{position:absolute;top:100%;left:0;right:0;z-index:200;background:#fff;border:1px solid #DDD;border-top:none;border-radius:0 0 4px 4px;box-shadow:0 4px 12px rgba(0,0,0,.1);max-height:240px;overflow-y:auto;display:none}
-.city-item{padding:.5rem .75rem;font-size:.86rem;cursor:pointer;border-bottom:1px solid #EBEBEB;color:var(--gray-dk);line-height:1.3}
-.city-item:hover,.city-item.active{background:#F0F0F0}
-.city-item small{display:block;font-size:.74rem;color:var(--gray-md);margin-top:.1rem}
-.city-item.no-result{cursor:default;font-style:italic;color:var(--gray-md)}
-.tz-badge{font-size:.77rem;color:var(--red);background:#FFF9F5;border:1px solid #FFE0D6;border-radius:4px;padding:.3rem .55rem;margin-top:.4rem;display:none;border-left:3px solid var(--red)}
+.city-drop{position:absolute;top:100%;left:0;right:0;z-index:50;background:var(--c-white);border:2px solid var(--c-line);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm);box-shadow:0 8px 24px rgba(0,0,0,.1);max-height:260px;overflow-y:auto;display:none}
+.city-item{padding:10px 14px;font-size:var(--fs-small);cursor:pointer;border-bottom:1px solid var(--c-line);color:var(--c-ink);line-height:1.35}
+.city-item:hover,.city-item.active{background:var(--c-cream)}
+.city-item small{display:block;font-size:.85em;color:var(--c-ink-soft);margin-top:2px}
+.city-item.no-result{cursor:default;font-style:italic;color:var(--c-ink-soft)}
+.tz-badge{font-size:var(--fs-small);color:var(--c-ink-soft);background:var(--c-cream);border-left:4px solid var(--c-orange);border-radius:var(--radius-sm);padding:8px 12px;margin-top:8px;display:none;line-height:1.45}
 .tz-badge.visible{display:block}
-.search-spinner{display:inline-block;width:12px;height:12px;border:2px solid #DDD;border-top-color:var(--red);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-left:.4rem;display:none}
+.search-spinner{display:none;width:14px;height:14px;border:2px solid var(--c-line);border-top-color:var(--c-red);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-left:6px}
 .search-spinner.active{display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* результаты */
+#results{display:none}
+.lagna-box{padding:clamp(18px,5vw,28px);border-radius:var(--radius);background:linear-gradient(135deg,var(--c-red),var(--c-orange));color:var(--c-white);text-align:center}
+.lagna-box h2{font-family:var(--font-display);font-weight:400;font-size:var(--fs-h2);line-height:1.15;color:var(--c-white);margin:0 0 8px}
+.lagna-sub{font-size:var(--fs-small);color:var(--c-white);opacity:.95;margin:4px 0 0;line-height:1.5}
+
+/* таблица планет */
+.table-card{overflow-x:auto}
+.ptable{width:100%;border-collapse:collapse;font-size:var(--fs-small)}
+.ptable th{background:var(--c-red);color:var(--c-white);padding:8px 10px;text-align:left;font-weight:700;white-space:nowrap}
+.ptable td{padding:8px 10px;border-bottom:1px solid var(--c-line);color:var(--c-ink);vertical-align:top}
+.ptable tr:nth-child(odd) td{background:var(--c-cream)}
+.lord-tag{color:var(--c-ink-soft);font-weight:400;font-size:.85em}
+.d-ex{font-weight:700;color:var(--c-orange)}
+.d-strong{font-weight:700;color:var(--c-ink)}
+.d-weak{font-weight:700;color:var(--c-red)}
+.d-enemy{color:var(--c-red)}
+.d-neutral{color:var(--c-ink)}
+.pstate{color:var(--c-ink-soft)}
+.pstate .bad{color:var(--c-red);font-weight:700}
+.table-legend{font-size:var(--fs-small);color:var(--c-ink-soft);margin-top:10px;line-height:1.5}
+
+/* карточки камней */
+.gem{padding:clamp(16px,4vw,24px);border-radius:var(--radius);background:var(--c-cream);border:1px solid var(--c-line);border-left:5px solid var(--c-red)}
+.gem + .gem{margin-top:16px}
+.gem.secondary{border-left-color:var(--c-orange)}
+.gem.soft{border-left-color:var(--c-ink-soft);background:var(--c-white)}
+.gem-title{font-size:var(--fs-h2);font-weight:700;color:var(--c-red);line-height:1.2}
+.gem.secondary .gem-title{color:var(--c-orange)}
+.gem.soft .gem-title{color:var(--c-ink)}
+.gem-sansk{font-size:var(--fs-small);color:var(--c-ink-soft);margin-top:2px}
+.gem-why{font-size:var(--fs-small);color:var(--c-ink);margin-top:6px}
+.gem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:var(--fs-small);margin-top:14px}
+@media(max-width:480px){.gem-grid{grid-template-columns:1fr 1fr}}
+.gem-cell{background:var(--c-white);padding:8px 10px;border-radius:var(--radius-sm);border:1px solid var(--c-line)}
+.gem-cell.wide{grid-column:span 2}
+.gem-lbl{font-size:.82em;color:var(--c-ink-soft);font-weight:700;margin-bottom:2px}
+.gem-val{color:var(--c-ink);font-weight:700;line-height:1.3}
+.gem-warn{background:var(--c-white);color:var(--c-red);font-size:var(--fs-small);line-height:1.5;padding:10px 12px;border-radius:var(--radius-sm);margin-top:12px;border-left:4px solid var(--c-red)}
+.gem-note{background:var(--c-white);color:var(--c-ink);font-size:var(--fs-small);line-height:1.5;padding:10px 12px;border-radius:var(--radius-sm);margin-top:12px;border-left:4px solid var(--c-orange)}
+.gem-alt{background:var(--c-white);color:var(--c-ink);font-size:var(--fs-small);line-height:1.5;padding:10px 12px;border-radius:var(--radius-sm);margin-top:12px;border-left:4px solid var(--c-orange)}
+.gem-subs{font-size:var(--fs-small);color:var(--c-ink);margin-top:12px;padding-top:12px;border-top:1px solid var(--c-line)}
+.gem-mantra{font-size:var(--fs-small);color:var(--c-red);font-style:italic;margin-top:8px}
+.note-card{background:var(--c-cream);border:1px solid var(--c-line);border-left:4px solid var(--c-ink-soft);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:14px;font-size:var(--fs-small);color:var(--c-ink);line-height:1.55}
+.empty-note{font-size:var(--fs-small);color:var(--c-ink-soft);font-style:italic;margin:0}
+.rules-list{margin:0;padding-left:20px}
+.rules-list li{margin:0 0 8px}
+.rules-warn{color:var(--c-red);font-weight:700;margin:12px 0 0}
 </style>
 </head>
 <body>
+<div class="astro-app">
 
-<header>
-  <div class="header-stars"></div>
-  <div class="header-glow"></div>
-  <div class="header-inner">
-    <span class="header-author">Светлана Кройцер</span>
-    <span class="header-gem">💎</span>
-    <h1>Драгоценные Камни<br>в Джйотиш</h1>
-    <div class="header-ornament">✦ · ✧ · ★ · ✧ · ✦</div>
-    <p class="header-sub">Индийская астрология · Подбор камней по натальной карте</p>
-  </div>
-</header>
+  <header class="astro-header">
+    <h1 class="astro-title">Драгоценные камни</h1>
+    <p class="astro-subtitle">Подбор камней по натальной карте · Джйотиш</p>
+  </header>
 
-<div class="wrap">
+  <section class="astro-section">
+    <h2 class="astro-h2">Данные рождения</h2>
+    <div class="astro-card">
 
-  <!-- FORM -->
-  <div class="card">
-    <div class="card-title">✦ Введите данные рождения</div>
-    <div class="grid2">
-      <div>
-        <label class="lbl">Дата рождения</label>
+      <div class="astro-field">
+        <label>Дата рождения</label>
         <div class="date-spin-wrap">
           <div class="spin-unit">
             <label>день</label>
             <div class="spin-box" id="sdayBox">
-              <button class="spin-btn" onclick="spinStep('day',1)">▲</button>
+              <button type="button" class="spin-btn" onclick="spinStep('day',1)">▲</button>
               <div class="spin-val" id="sdayVal">—</div>
-              <button class="spin-btn" onclick="spinStep('day',-1)">▼</button>
+              <button type="button" class="spin-btn" onclick="spinStep('day',-1)">▼</button>
             </div>
           </div>
           <span class="spin-sep">.</span>
           <div class="spin-unit">
             <label>месяц</label>
             <div class="spin-box" id="smonBox">
-              <button class="spin-btn" onclick="spinStep('mon',1)">▲</button>
+              <button type="button" class="spin-btn" onclick="spinStep('mon',1)">▲</button>
               <div class="spin-val" id="smonVal">—</div>
-              <button class="spin-btn" onclick="spinStep('mon',-1)">▼</button>
+              <button type="button" class="spin-btn" onclick="spinStep('mon',-1)">▼</button>
             </div>
           </div>
           <span class="spin-sep">.</span>
           <div class="spin-unit wide">
             <label>год</label>
             <div class="spin-box" id="syearBox">
-              <button class="spin-btn" onclick="spinStep('year',1)">▲</button>
+              <button type="button" class="spin-btn" onclick="spinStep('year',1)">▲</button>
               <div class="spin-val" id="syearVal">—</div>
-              <button class="spin-btn" onclick="spinStep('year',-1)">▼</button>
+              <button type="button" class="spin-btn" onclick="spinStep('year',-1)">▼</button>
             </div>
           </div>
         </div>
-        <input type="hidden" id="bday"/><input type="hidden" id="bmon"/><input type="hidden" id="byear"/>
+        <input type="hidden" id="bday"><input type="hidden" id="bmon"><input type="hidden" id="byear">
       </div>
-      <div>
-        <label class="lbl">Время рождения (местное)</label>
-        <input type="time" id="bt" value="12:00"/>
-      </div>
-    </div>
 
-    <!-- CITY SEARCH -->
-    <div style="margin-top:1rem">
-      <label class="lbl">Город / населённый пункт рождения <span class="search-spinner" id="spin"></span></label>
-      <div class="city-wrap">
-        <input type="text" id="citySearch" autocomplete="off"
-               placeholder="Начните вводить название города, деревни, посёлка…"
-               oninput="onCityInput(this.value)"
-               onkeydown="onCityKey(event)"/>
-        <div class="city-drop" id="cityDrop"></div>
+      <div class="astro-field">
+        <label for="bt">Время рождения (местное)</label>
+        <input type="time" id="bt" value="12:00">
       </div>
-      <div class="tz-badge" id="tzBadge"></div>
-    </div>
 
-    <div class="grid2" style="margin-top:.85rem">
-      <div>
-        <label class="lbl">Широта (° с.ш., - для ю.ш.) — заполняется автоматически</label>
-        <input type="number" id="lat" value="" step="0.0001" placeholder="авто"/>
+      <div class="astro-field">
+        <label for="citySearch">Город / населённый пункт рождения <span class="search-spinner" id="spin"></span></label>
+        <div class="city-wrap">
+          <input type="text" id="citySearch" autocomplete="off"
+                 placeholder="Начните вводить название города…"
+                 oninput="onCityInput(this.value)" onkeydown="onCityKey(event)">
+          <div class="city-drop" id="cityDrop"></div>
+        </div>
+        <div class="tz-badge" id="tzBadge"></div>
       </div>
-      <div>
-        <label class="lbl">Долгота (° в.д., - для з.д.) — заполняется автоматически</label>
-        <input type="number" id="lon" value="" step="0.0001" placeholder="авто"/>
-      </div>
-      <div>
-        <label class="lbl">Часовой пояс UTC ± (исторический, заполняется авто)</label>
-        <input type="number" id="tz" value="" step="0.25" placeholder="авто"/>
-      </div>
-      <div>
-        <label class="lbl">IANA-зона (для справки)</label>
-        <input type="text" id="tzIana" value="" placeholder="напр. Europe/Moscow" readonly style="background:var(--beige);cursor:default"/>
-      </div>
-    </div>
 
-    <div style="margin-top:.75rem">
-      <label class="lbl">Пол</label>
-      <div class="radio-row">
-        <label><input type="radio" name="sex" value="m" checked> Мужской</label>
-        <label><input type="radio" name="sex" value="f"> Женский</label>
+      <div class="field-grid">
+        <div class="astro-field">
+          <label for="lat">Широта <span class="hint">(авто)</span></label>
+          <input type="number" id="lat" step="0.0001" placeholder="° с.ш., − для ю.ш.">
+        </div>
+        <div class="astro-field">
+          <label for="lon">Долгота <span class="hint">(авто)</span></label>
+          <input type="number" id="lon" step="0.0001" placeholder="° в.д., − для з.д.">
+        </div>
+        <div class="astro-field">
+          <label for="tz">Часовой пояс UTC ± <span class="hint">(авто)</span></label>
+          <input type="number" id="tz" step="0.25" placeholder="напр. 3">
+        </div>
+        <div class="astro-field">
+          <label for="tzIana">IANA-зона <span class="hint">(справка)</span></label>
+          <input type="text" id="tzIana" placeholder="Europe/Moscow" readonly>
+        </div>
       </div>
-    </div>
-    <button class="btn" id="calcBtn" onclick="calc()">✦ Рассчитать рекомендации по камням</button>
-    <div id="engineBadge" class="engine-badge loading">⏳ Загрузка швейцарских эфемерид…</div>
-  </div>
 
-  <!-- RESULTS -->
+      <div class="astro-field">
+        <label>Пол</label>
+        <div class="radio-row">
+          <label><input type="radio" name="sex" value="m" checked> Мужской</label>
+          <label><input type="radio" name="sex" value="f"> Женский</label>
+        </div>
+      </div>
+
+      <button type="button" class="astro-btn astro-btn--block" id="calcBtn" onclick="calc()">Рассчитать рекомендации</button>
+      <div id="engineBadge" class="engine-badge">Загрузка швейцарских эфемерид…</div>
+    </div>
+  </section>
+
   <div id="results">
-    <div class="lagna-box" id="lagnaBox"></div>
+    <section class="astro-section">
+      <div class="lagna-box" id="lagnaBox"></div>
+    </section>
 
-    <div class="sec-title">✦ Планеты в сидерическом гороскопе</div>
-    <div class="card" style="padding:.6rem;overflow-x:auto">
-      <table class="ptable" id="ptable"></table>
-      <div style="font-size:.72rem;color:var(--gray-md);margin-top:.5rem;line-height:1.5">
-        ℞ — ретроградная · ☉! — сожжена Солнцем (комбуста) · ⚠ — поражена малефиками · ✦ — управитель лагны
+    <section class="astro-section">
+      <h2 class="astro-h2">Планеты в гороскопе</h2>
+      <div class="astro-card table-card">
+        <table class="ptable" id="ptable"></table>
+        <div class="table-legend">
+          ретро — ретроградная · сожжена — комбуста (близко к Солнцу) · поражена — под аспектом малефиков · упр. лагны — управитель восходящего знака
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="sec-title">✦ Основной камень — носить постоянно</div>
-    <div id="primaryDiv"></div>
+    <section class="astro-section">
+      <h2 class="astro-h2">Основной камень</h2>
+      <div id="primaryDiv"></div>
+    </section>
 
-    <div class="sec-title" id="secTitle">✦ Дополнительные камни — камни удачи</div>
-    <div id="secondaryDiv"></div>
+    <section class="astro-section">
+      <h2 class="astro-h2">Дополнительные камни удачи</h2>
+      <div id="secondaryDiv"></div>
+    </section>
 
-    <div class="sec-title">ℹ Важные правила ношения</div>
-    <div class="card" style="font-size:.82rem;line-height:1.7;color:var(--brown-md);font-style:italic">
-      <p>• Камень должен касаться кожи — его нижняя часть оправы должна быть открытой.</p>
-      <p>• Покупать и отдавать ювелиру камень следует в рекомендованный день.</p>
-      <p>• Перед первым надеванием необходимо выполнить ритуал очищения и прочитать мантру.</p>
-      <p>• Камни Сатурна, Раху и Кету требуют особой осторожности и консультации астролога.</p>
-      <p>• Синий сапфир рекомендуется носить 3 дня (пробный период), наблюдая за состоянием.</p>
-      <p>• Современная ювелирная обработка (лазер) убивает «душу камня» — приобретайте камни только у специалистов по Джйотиш.</p>
-      <p style="margin-top:.6rem;color:var(--terra-dk);font-weight:bold">⚠ Данный расчёт является ориентировочным. Для точного назначения камней необходима консультация с ведическим астрологом. Лучше не носить камень вовсе, чем носить неподходящий.</p>
-    </div>
-
-    <div class="ornament">✦ ✧ ✦ ✧ ✦ ✧ ✦</div>
+    <section class="astro-section">
+      <h2 class="astro-h2">Правила ношения</h2>
+      <div class="astro-card">
+        <ul class="rules-list">
+          <li>Камень должен касаться кожи — нижняя часть оправы открыта.</li>
+          <li>Покупать и впервые надевать камень — в рекомендованный день.</li>
+          <li>Перед первым надеванием — ритуал очищения и мантра.</li>
+          <li>Камни Сатурна, Раху и Кету требуют особой осторожности и консультации астролога.</li>
+          <li>Синий сапфир носить 3 дня пробно, наблюдая за состоянием.</li>
+          <li>Лазерная обработка «убивает душу камня» — покупайте у специалистов по Джйотиш.</li>
+        </ul>
+        <p class="rules-warn">Расчёт ориентировочный. Для точного подбора нужна консультация ведического астролога. Лучше не носить камень вовсе, чем носить неподходящий.</p>
+      </div>
+    </section>
   </div>
+
+  <footer class="astro-footer">
+    <p class="astro-disclaimer">
+      <strong>О методике.</strong> Расчёты выполняются в ведической (сидерической) системе Джйотиш с айанамшей Лахири и истинными узлами; дома равнознаковые. Эфемериды: Swiss Ephemeris (режим Moshier). Результат носит справочно-просветительский характер.
+    </p>
+    <p class="astro-credits">
+      Использованы: Swiss Ephemeris (Astrodienst AG, лицензия AGPL/коммерческая).
+    </p>
+    <p class="astro-copyright">
+      © <span id="year"></span> Индийская астрология со Светланой Кройцер · goroskop1008.ru
+    </p>
+  </footer>
 
 </div>
-
-<footer>
-  <div style="margin-bottom:.6rem">© Индийская астрология со Светланой Кройцер</div>
-  <div style="font-size:.7rem;color:var(--gray-md);line-height:1.5">
-    Ваши данные не передаются и не собираются. Расчёты выполняются локально в браузере.
-  </div>
-  <div style="margin-top:.6rem"><a href="https://goroskop1008.ru" target="_blank" style="color:var(--red);text-decoration:none;font-weight:600">goroskop1008.ru</a></div>
-</footer>
 
 <script>
 // ═══════════════════════════════════════
@@ -338,7 +296,11 @@ function initSpinners() {
     }, {passive:false});
   });
 }
-document.addEventListener('DOMContentLoaded', () => { initSpinners(); ensureEngine(); });
+document.addEventListener('DOMContentLoaded', () => {
+  initSpinners();
+  ensureEngine();
+  const _y=document.getElementById('year'); if(_y) _y.textContent=new Date().getFullYear();
+});
 
 // ═══════════════════════════════════════
 //  CITY GEOCODING (Nominatim + historical TZ)
@@ -641,7 +603,7 @@ const GEMS={
     sub_m:'Перидот, зелёный турмалин, хризопраз',
     sub_f:'Перидот, зелёный турмалин, хризопраз',
     warn_f:'',
-    warn:'⚠ Запрещён молодожёнам! Идеален для Лагны Близнецов.',
+    warn:'Запрещён молодожёнам! Идеален для Лагны Близнецов.',
   },
   Jupiter:{
     name:'Жёлтый топаз', sansk:'Пукхрадж', icon:'💛',
@@ -681,7 +643,7 @@ const GEMS={
     sub_m:'Аметист, чёрный жемчуг, лазурит',
     sub_f:'Аметист, чёрный жемчуг, лазурит',
     warn_f:'',
-    warn:'⚠ Требует особой осторожности! Носить 3 дня (пробный период), наблюдая за состоянием. Консультация астролога обязательна. Кольцо из сплава 5 металлов или белого золота (золото:серебро 1:10).',
+    warn:'Требует особой осторожности! Носить 3 дня (пробный период), наблюдая за состоянием. Консультация астролога обязательна. Кольцо из сплава 5 металлов или белого золота (золото:серебро 1:10).',
   },
   Rahu:{
     name:'Гессонит', sansk:'Гомед', icon:'🟤',
@@ -696,7 +658,7 @@ const GEMS={
     sub_m:'Коричневый циркон, гессонит-гранат',
     sub_f:'Коричневый циркон',
     warn_f:'',
-    warn:'⚠ Строго при Раху в дружественном знаке и в кендре. Использовать с большой осторожностью. Жертвовать медные монеты, горчицу, ячмень и кокос 43 дня подряд.',
+    warn:'Строго при Раху в дружественном знаке и в кендре. Использовать с большой осторожностью. Жертвовать медные монеты, горчицу, ячмень и кокос 43 дня подряд.',
   },
   Ketu:{
     name:'Кошачий глаз', sansk:'Лахсунья / Вайдрия', icon:'🟡',
@@ -711,7 +673,7 @@ const GEMS={
     sub_m:'Хризоберилл кошачий глаз',
     sub_f:'Хризоберилл кошачий глаз',
     warn_f:'',
-    warn:'⚠ Только после консультации с астрологом. Жертвовать бананы 48 дней или чёрно-белое одеяло 1 раз в год.',
+    warn:'Только после консультации с астрологом. Жертвовать бананы 48 дней или чёрно-белое одеяло 1 раз в год.',
   },
 };
 
@@ -795,11 +757,11 @@ async function initEngine(){
     // smoke test — Sun longitude must be finite
     if(!isFinite(SWE.calc(SWE.julday(2000,1,1,12),0,4|256).lon)) throw new Error('no result');
     SWE_READY = true;
-    if(badge){ badge.className='engine-badge'; badge.textContent='✓ Швейцарские эфемериды загружены (режим Moshier) · аянамша Лахири'; }
+    if(badge){ badge.className='engine-badge'; badge.textContent='Швейцарские эфемериды загружены (Moshier) · аянамша Лахири'; }
   }catch(e){
     console.warn('Swiss Ephemeris init failed — using analytic fallback', e);
     SWE_FAILED = true;
-    if(badge){ badge.className='engine-badge fallback'; badge.textContent='⚠ Швейцарские эфемериды не загрузились — используется приближённый расчёт. Запустите через локальный сервер (python3 -m http.server).'; }
+    if(badge){ badge.className='engine-badge fallback'; badge.textContent='Швейцарские эфемериды не загрузились — приближённый расчёт. Откройте страницу через сервер (https или python3 -m http.server).'; }
   }
 }
 
@@ -920,13 +882,13 @@ function dignity(p,sIdx){
 function digLabel(d){
   return {
     ex:'<span class="d-ex">Экзальтация</span>',
-    db:'<span class="d-deb">Падение</span>',
-    own:'<span class="d-own">Собственный знак</span>',
-    mt:'<span class="d-own">Мулатрикона</span>',
-    fr:'<span class="d-fri">Дружественный</span>',
-    en:'<span class="d-ene">Враждебный</span>',
-    nt:'Нейтральный',
-  }[d]||'Нейтральный';
+    db:'<span class="d-weak">Падение</span>',
+    own:'<span class="d-strong">Собственный знак</span>',
+    mt:'<span class="d-strong">Мулатрикона</span>',
+    fr:'<span class="d-neutral">Дружественный</span>',
+    en:'<span class="d-enemy">Враждебный</span>',
+    nt:'<span class="d-neutral">Нейтральный</span>',
+  }[d]||'<span class="d-neutral">Нейтральный</span>';
 }
 function digPlain(d){return digLabel(d).replace(/<[^>]*>/g,'');}
 function goodDig(d){return['ex','own','mt','fr'].includes(d);}
@@ -1090,7 +1052,7 @@ async function calc(){
   if(!isFinite(tz)){alert('Не определён часовой пояс. Выберите город ещё раз или впишите UTC вручную.');return;}
 
   const btn=document.getElementById('calcBtn');
-  btn.disabled=true; const btnTxt=btn.textContent; btn.textContent='⏳ Расчёт…';
+  btn.disabled=true; const btnTxt=btn.textContent; btn.textContent='Расчёт…';
   try{
     const chart=await computeChart(y,mo,d,h,mi,tz,lat,lon);
     _pos=chart.pos; _spd=chart.spd;
@@ -1109,13 +1071,13 @@ async function calc(){
     // PRIMARY
     document.getElementById('primaryDiv').innerHTML =
       rec.primary.map(r=>gemCard(r,'primary',sex)).join('') +
-      rec.notes.map(n=>`<div class="note-card">ℹ ${n}</div>`).join('');
+      rec.notes.map(n=>`<div class="note-card">${n}</div>`).join('');
 
     // LUCKY
     const sd=document.getElementById('secondaryDiv');
     sd.innerHTML = rec.lucky.length
       ? rec.lucky.map(r=>gemCard({...r,kind:'lucky'},'secondary',sex)).join('')
-      : '<p style="font-size:.83rem;color:var(--brown-md);font-style:italic;padding:.4rem 0">Дополнительных благоприятных камней безопасно назначить нельзя. Сосредоточьтесь на основной рекомендации.</p>';
+      : '<p class="empty-note">Дополнительных благоприятных камней безопасно назначить нельзя. Сосредоточьтесь на основной рекомендации.</p>';
 
     document.getElementById('results').style.display='block';
     document.getElementById('results').scrollIntoView({behavior:'smooth'});
@@ -1134,22 +1096,19 @@ function renderTable(chart){
     const si=signOf(p);
     const degInSign=_pos[p]%30;
     const dg=dignity(p,si);
-    const hl=(p===_lagLord)?' ✦':'';
-    const nearCusp=degInSign<1||degInSign>29;
-    const flags=[];
-    if((p!=='Sun'&&p!=='Moon'&&p!=='Rahu'&&p!=='Ketu') && _spd[p]<0)
-      flags.push('<span class="flag retro" title="Ретроградная — особый, усиленный статус (чешта-бала)">℞</span>');
-    if(isCombust(p))
-      flags.push('<span class="flag" title="Сожжена Солнцем (комбуста) — ослаблена">☉!</span>');
+    const isLord=(p===_lagLord);
+    const nm=`${PLN[p].sym} ${PLN[p].ru}`+(isLord?' <span class="lord-tag">· упр. лагны</span>':'');
+    const st=[];
+    if(p!=='Sun'&&p!=='Moon'&&p!=='Rahu'&&p!=='Ketu'&&_spd[p]<0) st.push('ретро');
+    if(isCombust(p)) st.push('<span class="bad">сожжена</span>');
     if(['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'].includes(p)){
       const aff=afflictors(p);
       if(aff.length && !(jupiterProtects(p)&&aff.length===1))
-        flags.push(`<span class="flag" title="Поражение: ${aff.map(m=>PLN[m].ru).join(', ')}">⚠</span>`);
-      else if(jupiterProtects(p))
-        flags.push('<span class="flag ok" title="Под защитой Юпитера">♃✓</span>');
+        st.push('<span class="bad">поражена: '+aff.map(m=>PLN[m].ru).join(', ')+'</span>');
+      else if(jupiterProtects(p)) st.push('защита Юпитера');
     }
-    const cusp=nearCusp?' <span class="flag" title="У границы знака — проверьте время рождения">◐</span>':'';
-    return `<tr><td>${PLN[p].sym} ${PLN[p].ru}${hl}</td><td>${SIGNS[si]} (${SANSK[si]})${cusp}</td><td>${degInSign.toFixed(1)}°</td><td>${houseFromLag(p)}</td><td>${digLabel(dg)}</td><td>${flags.join(' ')||'—'}</td></tr>`;
+    if(degInSign<1||degInSign>29) st.push('у границы знака');
+    return `<tr><td>${nm}</td><td>${SIGNS[si]} (${SANSK[si]})</td><td>${degInSign.toFixed(1)}°</td><td>${houseFromLag(p)}</td><td>${digLabel(dg)}</td><td><span class="pstate">${st.join(', ')||'—'}</span></td></tr>`;
   }).join('');
   document.getElementById('ptable').innerHTML=th+rows;
 }
@@ -1157,7 +1116,7 @@ function renderTable(chart){
 function renderLagna(chart,y,mo,d){
   const srcTxt = chart.source==='swisseph'
     ? 'Swiss Ephemeris (Moshier)'
-    : '⚠ приближённый расчёт (эфемериды не загрузились)';
+    : 'приближённый расчёт (эфемериды не загрузились)';
   document.getElementById('lagnaBox').innerHTML=`
     <h2>Ваша Лагна: ${SIGNS[_lagSign]} · ${SANSK[_lagSign]}</h2>
     <div class="lagna-sub">
@@ -1185,46 +1144,40 @@ function gemCard(rec,type,sex){
     return `
 <div class="gem soft">
   <div class="gem-head">
-    <div class="gem-icon">⚪</div>
-    <div>
-      <div class="gem-title">Только мягкий заменитель</div>
-      <div class="gem-sansk">вместо камня ${g.name} · ${PLN[planet].ru} (${PLN[planet].sym})</div>
-      <div class="gem-why">${rec.why}</div>
-    </div>
+    <div class="gem-title">Только мягкий заменитель</div>
+    <div class="gem-sansk">вместо камня ${g.name} · ${PLN[planet].ru}</div>
+    <div class="gem-why">${rec.why}</div>
   </div>
-  <div class="gem-alt">🟡 Осторожный вариант (полудрагоценный заменитель, низкий риск): <b>${subs}</b>. Носить как пробу, наблюдая за самочувствием; при дискомфорте — снять. Полноценный самоцвет ${g.name} не рекомендуется.</div>
-  <div class="gem-mantra">🕉 ${g.mantra}</div>
+  <div class="gem-alt"><strong>Осторожный вариант</strong> (полудрагоценный заменитель, низкий риск): <b>${subs}</b>. Носить как пробу, наблюдая за самочувствием; при дискомфорте — снять. Полноценный самоцвет ${g.name} не рекомендуется.</div>
+  <div class="gem-mantra">Мантра: ${g.mantra}</div>
 </div>`;
   }
 
-  const warnF=(isF&&g.warn_f)?`<div class="gem-warn">⚠ ${g.warn_f}</div>`:'';
+  const warnF=(isF&&g.warn_f)?`<div class="gem-warn"><strong>Внимание.</strong> ${g.warn_f}</div>`:'';
   const warnS=g.warn?`<div class="gem-warn">${g.warn}</div>`:'';
-  const noteS=g.note?`<div class="gem-warn" style="background:#F0F7F0;color:#27682A;border-left-color:#27682A">ℹ ${g.note}</div>`:'';
-  const hardAlt=isHard?`<div class="gem-alt">⚠ Камень «трудной» планеты (${PLN[planet].ru}). Рекомендуется СНАЧАЛА носить безопасный заменитель: <b>${subs}</b> — и только при хорошем отклике и по согласованию с астрологом переходить к ${g.name}.</div>`:'';
+  const noteS=g.note?`<div class="gem-note">${g.note}</div>`:'';
+  const hardAlt=isHard?`<div class="gem-alt"><strong>Осторожно.</strong> Камень «трудной» планеты (${PLN[planet].ru}). Рекомендуется сначала носить безопасный заменитель: <b>${subs}</b> — и только при хорошем отклике и по согласованию с астрологом переходить к ${g.name}.</div>`:'';
 
   return `
 <div class="gem ${type}">
   <div class="gem-head">
-    <div class="gem-icon">${g.icon}</div>
-    <div>
-      <div class="gem-title">${g.name}</div>
-      <div class="gem-sansk">${g.sansk} · ${PLN[planet].ru} (${PLN[planet].sym})</div>
-      <div class="gem-why">Назначение: ${rec.why}</div>
-    </div>
+    <div class="gem-title">${g.name}</div>
+    <div class="gem-sansk">${g.sansk} · ${PLN[planet].ru}</div>
+    <div class="gem-why">Назначение: ${rec.why}</div>
   </div>
   <div class="gem-grid">
     <div class="gem-cell"><div class="gem-lbl">Металл оправы</div><div class="gem-val">${g.metal}</div></div>
     <div class="gem-cell"><div class="gem-lbl">Рука</div><div class="gem-val">${g.hand}</div></div>
     <div class="gem-cell"><div class="gem-lbl">Палец</div><div class="gem-val">${g.finger}</div></div>
     <div class="gem-cell"><div class="gem-lbl">Вес</div><div class="gem-val">${g.weight}</div></div>
-    <div class="gem-cell"><div class="gem-lbl">День покупки / надевания</div><div class="gem-val">${g.day}</div></div>
-    <div class="gem-cell"><div class="gem-lbl">Время ношения</div><div class="gem-val">${g.time}</div></div>
+    <div class="gem-cell"><div class="gem-lbl">День надевания</div><div class="gem-val">${g.day}</div></div>
+    <div class="gem-cell"><div class="gem-lbl">Время</div><div class="gem-val">${g.time}</div></div>
     <div class="gem-cell"><div class="gem-lbl">Огранка</div><div class="gem-val">${g.cut}</div></div>
     <div class="gem-cell wide"><div class="gem-lbl">Цвет / качество</div><div class="gem-val">${g.color}</div></div>
   </div>
   ${hardAlt}${warnF}${warnS}${noteS}
   <div class="gem-subs">Заменители: ${subs}</div>
-  <div class="gem-mantra">🕉 ${g.mantra}</div>
+  <div class="gem-mantra">Мантра: ${g.mantra}</div>
 </div>`;
 }
 
