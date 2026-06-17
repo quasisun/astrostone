@@ -67,6 +67,7 @@ body{margin:0;background:#fff}
 .d-neutral{color:var(--c-ink)}
 .pstate{color:var(--c-ink-soft)}
 .pstate .bad{color:var(--c-red);font-weight:700}
+.pstate .ok{color:var(--c-ink);font-weight:700}
 .table-legend{font-size:var(--fs-small);color:var(--c-ink-soft);margin-top:10px;line-height:1.5}
 
 /* карточки камней */
@@ -200,7 +201,7 @@ body{margin:0;background:#fff}
       <div class="astro-card table-card">
         <table class="ptable" id="ptable"></table>
         <div class="table-legend">
-          ретро — ретроградная · сожжена — комбуста (близко к Солнцу) · поражена — под аспектом малефиков · упр. лагны — управитель восходящего знака
+          ретро — ретроградная · сожжена — комбуста · каземи — в «сердце Солнца» (сила) · падение отменено — Нича Бханга · Паривартана — обмен знаками · поражена — под аспектом малефиков · упр. лагны — управитель восходящего знака
         </div>
       </div>
     </section>
@@ -233,7 +234,7 @@ body{margin:0;background:#fff}
 
   <footer class="astro-footer">
     <p class="astro-disclaimer">
-      <strong>О методике.</strong> Расчёты выполняются в ведической (сидерической) системе Джйотиш с айанамшей Лахири и истинными узлами; дома равнознаковые. Эфемериды: Swiss Ephemeris (режим Moshier). Результат носит справочно-просветительский характер.
+      <strong>О методике.</strong> Расчёты выполняются в ведической (сидерической) системе Джйотиш с айанамшей Лахири и истинными узлами; дома равнознаковые. Эфемериды: Swiss Ephemeris (режим Moshier). Учитываются смягчающие факторы: отмена падения (Нича Бханга), Паривартана-йога, каземи. Результат носит справочно-просветительский характер.
     </p>
     <p class="astro-credits">
       Использованы: Swiss Ephemeris (Astrodienst AG, лицензия AGPL/коммерческая).
@@ -530,6 +531,8 @@ const EXALT= {Sun:0,Moon:1,Mars:9,Mercury:5,Jupiter:3,Venus:11,Saturn:6};
 const DEBIT= {Sun:6,Moon:7,Mars:3,Mercury:11,Jupiter:9,Venus:5,Saturn:0};
 const OWNED= {Sun:[4],Moon:[3],Mars:[0,7],Mercury:[2,5],Jupiter:[8,11],Venus:[1,6],Saturn:[9,10]};
 const MULATRIK={Sun:4,Moon:1,Mars:0,Mercury:5,Jupiter:8,Venus:6,Saturn:9};
+// Планета, экзальтирующая в данном знаке (обратное к EXALT) — для Нича Бханги
+const EXALT_SIGN_LORD={0:'Sun',1:'Moon',9:'Mars',5:'Mercury',3:'Jupiter',11:'Venus',6:'Saturn'};
 
 const FRIENDS={
   Sun:['Moon','Mars','Jupiter'], Moon:['Sun','Mercury'],
@@ -922,9 +925,15 @@ function jupiterProtects(p){
   const sp=signOf(p);
   return signOf('Jupiter')===sp || aspectsCast('Jupiter').has(sp);
 }
+function cazimi(p){
+  if(p==='Sun'||p==='Rahu'||p==='Ketu') return false;
+  let dd=Math.abs(_pos[p]-_pos.Sun); if(dd>180) dd=360-dd;
+  return dd<0.2833; // ~17′ — «в сердце Солнца»
+}
 function isCombust(p){
   if(p==='Sun'||p==='Rahu'||p==='Ketu') return false;
   const orb=COMBUST_ORB[p]; if(!orb) return false;
+  if(cazimi(p)) return false; // каземи — не сожжение, а сила
   let dd=Math.abs(_pos[p]-_pos.Sun); if(dd>180) dd=360-dd;
   return dd<orb;
 }
@@ -946,30 +955,92 @@ function yogakaraka(){
     if(funcInfo(p).isYoga) return p;
   return null;
 }
+// ── Нича Бханга: отмена падения (только если планета в падении) ──
+function neechaBhanga(p){
+  if(dignity(p,signOf(p))!=='db') return null;
+  const s=signOf(p);                       // знак падения
+  const dispLord=RULER[s];                 // диспозитор (управитель знака)
+  const exaltLord=EXALT_SIGN_LORD[s];      // планета, экзальтирующая в этом знаке
+  const moonSign=signOf('Moon');
+  const inKendra=q=>{
+    const hL=((signOf(q)-_lagSign+12)%12)+1;
+    const hM=((signOf(q)-moonSign+12)%12)+1;
+    return [1,4,7,10].includes(hL)||[1,4,7,10].includes(hM);
+  };
+  const strong=q=>['ex','own','mt'].includes(dignity(q,signOf(q)));
+  const reasons=[];
+  if(dispLord && dispLord!==p && inKendra(dispLord)) reasons.push(`диспозитор ${PLN[dispLord].ru} в кендре`);
+  if(exaltLord && exaltLord!==p && inKendra(exaltLord)) reasons.push(`${PLN[exaltLord].ru} (экзальт. в ${SIGNS[s]}) в кендре`);
+  if(dispLord && dispLord!==p && (signOf(dispLord)===s || aspectsCast(dispLord).has(s))) reasons.push(`связь с диспозитором ${PLN[dispLord].ru}`);
+  if(exaltLord && exaltLord!==p && (signOf(exaltLord)===s || aspectsCast(exaltLord).has(s))) reasons.push(`связь с ${PLN[exaltLord].ru}`);
+  const comp=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'].filter(q=>q!==p && signOf(q)===s && strong(q));
+  if(comp.length) reasons.push(`в одном знаке с сильной планетой (${comp.map(q=>PLN[q].ru).join(', ')})`);
+  if(dispLord && dispLord!==p && strong(dispLord)) reasons.push(`диспозитор ${PLN[dispLord].ru} силён`);
+  return {cancelled:reasons.length>0, reasons};
+}
+// ── Паривартана: обмен знаками между двумя планетами ──
+function parivartana(p){
+  const sp=signOf(p);
+  for(const q of ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn']){
+    if(q===p) continue;
+    const pInQ=(OWNED[q]||[]).includes(sp);
+    const qInP=(OWNED[p]||[]).includes(signOf(q));
+    if(pInQ && qInP){
+      const dainya=housesOwned(p).some(h=>[6,8,12].includes(h)) || housesOwned(q).some(h=>[6,8,12].includes(h));
+      return {exchange:true, partner:q, dainya};
+    }
+  }
+  return null;
+}
 function evaluatePlanet(p){
   const dg=dignity(p,signOf(p));
   const h=houseFromLag(p);
-  const combust=isCombust(p);
+  const cz=cazimi(p);
+  const combust=isCombust(p);              // уже исключает каземи
   const retro=(p!=='Sun'&&p!=='Moon')?(_spd[p]<0):false;
   const aff=afflictors(p);
   const protJ=jupiterProtects(p);
   const inDus=[6,8,12].includes(h);
-  let afflicted=aff.length>0, mitigated=false;
-  if(afflicted && protJ && aff.length===1){ afflicted=false; mitigated=true; }
+
+  // смягчающие факторы
+  const nb=(dg==='db')?neechaBhanga(p):null;
+  const pv=parivartana(p);
+  const pvPositive=pv && pv.exchange && !pv.dainya;
+  const dignBad=(dg==='db'||dg==='en');
+  const dignMitigated=dignBad && ((nb&&nb.cancelled) || pvPositive);
+  const mitig=[];
+  if(nb&&nb.cancelled) mitig.push('падение отменено — Нича Бханга ('+nb.reasons.join('; ')+')');
+  if(pv&&pv.exchange) mitig.push((pv.dainya?'Паривартана-Дайнья с ':'Паривартана с ')+PLN[pv.partner].ru);
+  if(cz) mitig.push('каземи (в сердце Солнца)');
+  if(retro&&dg==='db') mitig.push('ретроградность (лёгкий плюс)');
+
+  let afflicted=aff.length>0;
+  if(afflicted && protJ && aff.length===1) afflicted=false;
+
   const goodNeutral=['ex','own','mt','fr','nt'].includes(dg);
+  const effGoodNeutral=goodNeutral || dignMitigated;   // смягчённое падение/враг = нейтрально
   const reasons=[];
-  if(dg==='db') reasons.push('падение');
-  if(dg==='en') reasons.push('враждебный знак');
+  if(dg==='db' && !dignMitigated) reasons.push('падение');
+  if(dg==='en' && !dignMitigated) reasons.push('враждебный знак');
   if(combust) reasons.push('сожжение Солнцем');
   if(inDus) reasons.push('дустхана ('+h+'-й дом)');
   if(afflicted) reasons.push('поражение ('+aff.map(m=>PLN[m].ru).join(', ')+')');
-  const unsuitable=(dg==='db'||dg==='en'||combust||inDus||afflicted);
-  const safe=goodNeutral && !inDus && !combust && !afflicted;
+
+  const dignCountsBad=dignBad && !dignMitigated;
+  const unsuitable=dignCountsBad || combust || inDus || afflicted;
+  const safe=effGoodNeutral && !inDus && !combust && !afflicted;
+
   let score={ex:5,own:4,mt:4,fr:3,nt:2,en:1,db:0}[dg];
+  if(dignMitigated) score=Math.max(score,2.5);   // поднимаем до нейтрали, но не «сильно»
   if([1,5,9].includes(h)) score+=1.5; else if([4,7,10].includes(h)) score+=1;
+  if(cz) score+=1;
+  if(pvPositive) score+=0.5;
   if(combust||afflicted) score-=2;
   if(retro) score+=0.3;
-  return {p,dg,h,combust,retro,aff,protJ,mitigated,inDus,afflicted,goodNeutral,safe,unsuitable,reasons,score};
+
+  const mitigText=mitig.join('; ');
+  return {p,dg,h,combust,cz,retro,aff,protJ,inDus,afflicted,goodNeutral,effGoodNeutral,
+          nb,pv,dignMitigated,mitig,mitigText,safe,unsuitable,reasons,score};
 }
 
 // ═══════════════════════════════════════
@@ -986,7 +1057,9 @@ function recommendGems(E){
   // ── PRIMARY (life gem) ──
   if(!lordE.unsuitable){
     primary.push({p:_lagLord, kind:'life',
-      why:`Управитель лагны (${SIGNS[_lagSign]}) — хорошо расположен. Это основной камень жизни (Дживан-ратна).`});
+      why: lordE.dignMitigated
+        ? `Управитель лагны (${SIGNS[_lagSign]}) формально слаб, но смягчено: ${lordE.mitigText}. Камень допустим как основной (Дживан-ратна).`
+        : `Управитель лагны (${SIGNS[_lagSign]}) — хорошо расположен. Это основной камень жизни (Дживан-ратна).`});
   }else{
     notes.push(`Управитель лагны — ${PLN[_lagLord].ru} — ослаблен: ${lordE.reasons.join('; ')}. Его камень усилил бы слабость, поэтому опору ищем среди благих планет по каскаду 9 → 5 → кендра.`);
     let chosen=null;
@@ -1007,7 +1080,11 @@ function recommendGems(E){
         chosen={p:cands[0], kind:'support',
           why:`Сильная благая планета в кендре (${E[cands[0]].h}-й дом), дружественна управителю лагны. Опора при ослабленном лагнеше.`};
     }
-    if(chosen) primary.push(chosen);
+    if(chosen){
+      const ce=E[chosen.p];
+      if(ce && ce.mitigText) chosen.why += ` Учтено: ${ce.mitigText}.`;
+      primary.push(chosen);
+    }
     else{
       primary.push({p:_lagLord, kind:'soft', softOnly:true,
         why:`Безопасной опоры в карте не нашлось: ни управитель 9-го/5-го домов, ни планета в кендре не подходят без риска. Сам камень управителя лагны НЕ назначается (планета ослаблена). Допустим только мягкий полудрагоценный заменитель — как осторожный, обратимый опыт.`});
@@ -1102,6 +1179,10 @@ function renderTable(chart){
     if(p!=='Sun'&&p!=='Moon'&&p!=='Rahu'&&p!=='Ketu'&&_spd[p]<0) st.push('ретро');
     if(isCombust(p)) st.push('<span class="bad">сожжена</span>');
     if(['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'].includes(p)){
+      if(cazimi(p)) st.push('<span class="ok">каземи</span>');
+      if(dg==='db'){ const nb=neechaBhanga(p); if(nb&&nb.cancelled) st.push('<span class="ok">падение отменено</span>'); }
+      const pv=parivartana(p);
+      if(pv&&pv.exchange) st.push((pv.dainya?'Паривартана-Дайнья с ':'Паривартана с ')+PLN[pv.partner].ru);
       const aff=afflictors(p);
       if(aff.length && !(jupiterProtects(p)&&aff.length===1))
         st.push('<span class="bad">поражена: '+aff.map(m=>PLN[m].ru).join(', ')+'</span>');
